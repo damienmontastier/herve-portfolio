@@ -98,7 +98,6 @@ export default {
 
     &--row {
       display: flex;
-      // flex-direction: column;
       white-space: nowrap;
       height: 50vh;
       width: 100%;
@@ -115,10 +114,10 @@ export default {
       }
 
       &.left span {
-        animation: 50s marqueeAnimation infinite linear;
+        animation: 30s marqueeAnimation infinite linear;
       }
       &.right span {
-        animation: 50s marqueeAnimation infinite linear reverse;
+        animation: 30s marqueeAnimation infinite linear reverse;
       }
     }
 
