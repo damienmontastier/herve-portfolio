@@ -17,6 +17,11 @@
       <span v-for="i in 5" :key="i">Pluriel</span>
       <span v-for="i in 5" :key="i">Pluriel</span>
     </div>
+    <div class="home-pagination">
+      <div class="home-pagination--current">01</div>
+      <span></span>
+      <div class="home-pagination--total">04</div>
+    </div>
   </div>
 </template>
 
@@ -32,15 +37,6 @@ export default {}
   flex-flow: column;
   justify-content: center;
   align-items: center;
-
-  @keyframes marqueeAnimation {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
 
   &-marquee {
     display: flex;
@@ -89,8 +85,6 @@ export default {}
           content: '' !important;
         }
         .middle {
-          span {
-          }
           &--left,
           &--right {
             font-family: 'Manrope';
@@ -120,6 +114,39 @@ export default {}
     &.right span {
       animation: 50s marqueeAnimation infinite linear reverse;
     }
+  }
+  &-pagination {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    font-family: 'Manrope';
+    color: white;
+    font-size: 14px;
+
+    &--current {
+      font-weight: 900;
+    }
+    &--total {
+      font-weight: 200;
+    }
+
+    span {
+      width: 40px;
+      height: 1px;
+      background: white;
+      margin: 0 10px;
+    }
+  }
+}
+
+@keyframes marqueeAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
   }
 }
 </style>

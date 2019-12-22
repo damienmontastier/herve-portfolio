@@ -37,9 +37,10 @@ export default {
       this.mousePosition.y = e.clientY
 
       gsap.to(this.$refs.cursor, {
-        duration: 1,
+        duration: 0.5,
         x: this.mousePosition.x - this.cursorParams.width / 2,
-        y: this.mousePosition.y - this.cursorParams.width / 2
+        y: this.mousePosition.y - this.cursorParams.width / 2,
+        ease: 'power4.easeOut'
       })
     }
   }
