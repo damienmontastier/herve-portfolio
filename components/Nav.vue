@@ -2,10 +2,10 @@
   <nav class="nav-menu">
     <ul>
       <li>
-        <a href="bikes">About</a>
+        <a>About</a>
       </li>
       <li>
-        <a href="bikes">Works</a>
+        <a>Works</a>
       </li>
     </ul>
   </nav>
@@ -23,8 +23,16 @@ export default {}
   ul {
     display: inline-flex;
     li {
+      font-size: 12px;
+      font-family: 'Manrope';
+      text-transform: uppercase;
+
       &:first-child {
         margin-right: 20px;
+      }
+      a {
+        text-decoration: none;
+        color: white;
       }
     }
   }

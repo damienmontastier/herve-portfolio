@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Nav></Nav>
+    <Nav />
     <nuxt />
-    <Pointer></Pointer>
+    <Pointer />
   </div>
 </template>
 

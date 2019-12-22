@@ -1,5 +1,5 @@
 <template>
-  <div class="cursor">
+  <div ref="cursor" class="cursor">
     <svg class="arrow" width="27" height="42" xmlns="http://www.w3.org/2000/svg">
       <g fill="#FFF" fill-rule="evenodd">
         <path d="M12.075 0h3v38h-3z" />
@@ -11,7 +11,39 @@
 </template>
 
 <script>
-export default {}
+import gsap from 'gsap'
+
+export default {
+  data() {
+    return {
+      mousePosition: { x: 0, y: 0 },
+      cursorParams: {}
+    }
+  },
+  created() {},
+  mounted() {
+    this.handleEvents()
+    this.cursorParams = this.$refs.cursor.getBoundingClientRect()
+  },
+  methods: {
+    handleEvents() {
+      document.addEventListener('mousemove', this.handleMouseMove)
+    },
+    handleMouseMove(e) {
+      this.mousePosition.x = e.clientX
+      this.mousePosition.y = e.clientY
+
+      console.log(this.$refs.cursor.getBoundingClientRect())
+
+      gsap.to(this.$refs.cursor, {
+        duration: 1,
+        x: this.mousePosition.x - this.cursorParams.width / 2,
+        y: this.mousePosition.y - this.cursorParams.width / 2
+      })
+      console.log('mouse')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
