@@ -161,7 +161,7 @@ export default {
           font-size: 12px;
           position: absolute;
           transform: rotate(-90deg);
-          top: 15%;
+          top: 30%;
         }
         .middle--left {
           left: calc(-50px - 25px);
