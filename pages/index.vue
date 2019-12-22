@@ -1,21 +1,42 @@
 <template>
-  <div class="home">
-    <div class="home-marquee left">
-      <span v-for="i in 5" :key="i">Pluriel</span>
-      <span v-for="i in 5" :key="i">Pluriel</span>
-    </div>
-    <div style class="home-marquee home-marquee-middle">
-      <span class="home-marquee-middle-left" v-for="i in 3" :key="i">Pluriel</span>
-      <div class="home-marquee-middle-center">
-        <span class="middle--left">Interactive site</span>
-        <span class="middle--center">Pluriel</span>
-        <span class="middle--right">Interactive site</span>
+  <div ref="home" class="home">
+    <div class="home-marquee">
+      <div
+        class="home-marquee--row left"
+        ref="firstRow"
+        v-for="(project,index) in projects"
+        :key="index"
+      >
+        <span v-for="i in 5" :key="i">{{project.title}}</span>
+        <span v-for="i in 5" :key="i">{{project.title}}</span>
       </div>
-      <span class="home-marquee-middle-right" v-for="i in 3" :key="i">Pluriel</span>
     </div>
-    <div class="home-marquee right">
-      <span v-for="i in 5" :key="i">Pluriel</span>
-      <span v-for="i in 5" :key="i">Pluriel</span>
+    <div style class="home-marquee">
+      <div
+        ref="secondRow"
+        v-for="(project,index) in projects"
+        :key="index"
+        class="home-marquee--row home-marquee-middle"
+      >
+        <span v-for="i in 3" :key="i" class="home-marquee-middle-left">{{project.title}}</span>
+        <div class="home-marquee-middle-center">
+          <span class="middle--left">{{project.type}}</span>
+          <span class="middle--center">{{project.title}}</span>
+          <span class="middle--right">{{project.type}}</span>
+        </div>
+        <span v-for="i in 3" :key="i" class="home-marquee-middle-right">{{project.title}}</span>
+      </div>
+    </div>
+    <div class="home-marquee">
+      <div
+        v-for="(project,index) in projects"
+        :key="index"
+        ref="thirdRow"
+        class="home-marquee--row right"
+      >
+        <span v-for="i in 5" :key="i">{{project.title}}</span>
+        <span v-for="i in 5" :key="i">{{project.title}}</span>
+      </div>
     </div>
     <div class="home-pagination">
       <div class="home-pagination--current">01</div>
@@ -26,13 +47,38 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+import { mapState } from 'vuex'
+
 export default {
-  head() {
-    return {
-      script: [
-        { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }
-      ]
+  mounted() {
+    this.handleEvents()
+    console.log(this.projects)
+    console.log(this.$refs)
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleMouseClick)
+  },
+  methods: {
+    handleEvents() {
+      document.addEventListener('click', this.handleMouseClick)
+    },
+    handleMouseClick() {
+      gsap.to(
+        [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
+        {
+          y: '-100%',
+          duration: 3,
+          ease: 'Power4.easeInOut'
+        }
+      )
+      console.log('click')
     }
+  },
+  computed: {
+    ...mapState({
+      projects: (state) => state.projects
+    })
   }
 }
 </script>
@@ -47,20 +93,35 @@ export default {
   align-items: center;
 
   &-marquee {
-    display: flex;
-    white-space: nowrap;
-    width: 100%;
-    font-size: 248px;
-    position: relative;
-    width: 100%;
-    font-family: 'Gandur', 'Source Sans Pro';
-    text-transform: uppercase;
-    -webkit-text-stroke: 1px #ffffff;
-    color: transparent;
     transform: rotate(-5deg);
+    overflow: hidden;
+    width: 100%;
+    height: 30%;
 
-    span::after {
-      content: '\00a0';
+    &--row {
+      display: flex;
+      // flex-direction: column;
+      white-space: nowrap;
+      height: 50vh;
+      width: 100%;
+      font-size: 248px;
+      position: relative;
+      width: 100%;
+      font-family: 'Gandur', 'Source Sans Pro';
+      text-transform: uppercase;
+      -webkit-text-stroke: 1px #ffffff;
+      color: transparent;
+
+      span::after {
+        content: '\00a0';
+      }
+
+      &.left span {
+        animation: 50s marqueeAnimation infinite linear;
+      }
+      &.right span {
+        animation: 50s marqueeAnimation infinite linear reverse;
+      }
     }
 
     &-middle {
@@ -92,37 +153,30 @@ export default {
         span::after {
           content: '' !important;
         }
-        .middle {
-          &--left,
-          &--right {
-            font-family: 'Manrope';
-            font-weight: 200;
-            font-size: 12px;
-            position: absolute;
-            transform: rotate(-90deg);
-            top: 50%;
-          }
-          &--left {
-            left: calc(-50px - 25px);
-          }
-          &--right {
-            right: calc(-50px - 25px);
-          }
-          &--center {
-            -webkit-text-stroke: transparent;
-            color: white;
-          }
+
+        .middle--left,
+        .middle--right {
+          font-family: 'Manrope';
+          font-weight: 200;
+          font-size: 12px;
+          position: absolute;
+          transform: rotate(-90deg);
+          top: 15%;
+        }
+        .middle--left {
+          left: calc(-50px - 25px);
+        }
+        .middle--right {
+          right: calc(-50px - 25px);
+        }
+        .middle--center {
+          -webkit-text-stroke: transparent;
+          color: white;
         }
       }
     }
-
-    &.left span {
-      animation: 50s marqueeAnimation infinite linear;
-    }
-    &.right span {
-      animation: 50s marqueeAnimation infinite linear reverse;
-    }
   }
+
   &-pagination {
     position: fixed;
     bottom: 30px;
