@@ -11,7 +11,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Melon | Starter - Nuxt.js | Creative development'
+        content: 'Portfolio Hervé'
       },
       { name: 'theme-color', content: '#1A1A1A' },
       { name: 'msapplication-TileColor', content: '#1A1A1A' },
@@ -19,7 +19,7 @@ export default {
       {
         hid: `og:title`,
         property: 'og:title',
-        content: 'Melon | Starter - Nuxt.js | Creative development'
+        content: 'Portfolio Hervé'
       },
       {
         hid: 'og:type',
@@ -29,18 +29,17 @@ export default {
       {
         hid: 'og:description',
         property: 'og:description',
-        content:
-          'Melon is a nuxt.js starter for creative development, using Three, Pixi, SmoothScroll and i18n, made by Antoine Abbou ✌️'
+        content: 'Portfolio Hervé'
       },
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'Melon | Starter - Nuxt.js | Creative development'
+        content: 'Portfolio Hervé'
       },
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'https://github.com/antoineabbou/creative-starter-nuxt'
+        content: ''
       },
       {
         hid: 'og:image:width',
@@ -65,12 +64,12 @@ export default {
       {
         hid: 'twitter:title',
         property: 'twitter:title',
-        content: 'Melon | Starter - Nuxt.js | Creative development'
+        content: 'Portfolio Hervé'
       },
       {
         hid: 'twitter:description',
         property: 'twitter:description',
-        content: 'Melon | Starter - Nuxt.js | Creative development'
+        content: 'Portfolio Hervét'
       },
       {
         hid: 'twitter:site',
@@ -120,6 +119,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend (config, ctx) {}
+    extend(config, ctx) {}
   }
 }
