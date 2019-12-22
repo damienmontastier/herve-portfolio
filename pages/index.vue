@@ -1,8 +1,16 @@
 <template>
   <div class="container">
     <div>
+      <div class="marquee left">
+        <span v-for="i in 5" :key="i">Hello</span>
+        <span v-for="i in 5" :key="i">Hello</span>
+      </div>
+      <div class="marquee right">
+        <span v-for="i in 5" :key="i">Hello</span>
+        <span v-for="i in 5" :key="i">Hello</span>
+      </div>
+
       <h1 class="title">herve-portfolio</h1>
-      <h2 class="subtitle">My divine Nuxt.js project</h2>
     </div>
   </div>
 </template>
@@ -11,7 +19,7 @@
 export default {}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -30,15 +38,33 @@ export default {}
   letter-spacing: 1px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+@keyframes marqueeAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
-.links {
-  padding-top: 15px;
+.marquee {
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+  font-size: 200px;
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+
+  span:after {
+    content: '\00a0';
+  }
+
+  &.left span {
+    animation: 1s marqueeAnimation infinite linear;
+  }
+  &.right span {
+    animation: 1s marqueeAnimation infinite linear reverse;
+  }
 }
 </style>
