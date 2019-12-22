@@ -2,10 +2,10 @@
   <div ref="home" class="home">
     <div class="home-marquee">
       <div
-        class="home-marquee--row left"
         ref="firstRow"
         v-for="(project,index) in projects"
         :key="index"
+        class="home-marquee--row left"
       >
         <span v-for="i in 5" :key="i">{{project.title}}</span>
         <span v-for="i in 5" :key="i">{{project.title}}</span>
@@ -53,8 +53,6 @@ import { mapState } from 'vuex'
 export default {
   mounted() {
     this.handleEvents()
-    console.log(this.projects)
-    console.log(this.$refs)
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleMouseClick)
