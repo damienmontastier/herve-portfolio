@@ -25,6 +25,9 @@ export default {
     this.handleEvents()
     this.cursorParams = this.$refs.cursor.getBoundingClientRect()
   },
+  beforeDestroy() {
+    document.removeEventListener('mousemove', this.handleMouseMove)
+  },
   methods: {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
@@ -33,14 +36,11 @@ export default {
       this.mousePosition.x = e.clientX
       this.mousePosition.y = e.clientY
 
-      console.log(this.$refs.cursor.getBoundingClientRect())
-
       gsap.to(this.$refs.cursor, {
         duration: 1,
         x: this.mousePosition.x - this.cursorParams.width / 2,
         y: this.mousePosition.y - this.cursorParams.width / 2
       })
-      console.log('mouse')
     }
   }
 }

@@ -4,8 +4,14 @@
       <span v-for="i in 5" :key="i">Pluriel</span>
       <span v-for="i in 5" :key="i">Pluriel</span>
     </div>
-    <div style="width: 100vw; display: flex; justify-content: center;" class="home-marquee">
-      <span v-for="i in 7" :key="i">Pluriel</span>
+    <div style class="home-marquee home-marquee-middle">
+      <span class="home-marquee-middle-left" v-for="i in 3" :key="i">Pluriel</span>
+      <div class="home-marquee-middle-center">
+        <span class="middle--left">Interactive site</span>
+        <span class="middle--center">Pluriel</span>
+        <span class="middle--right">Interactive site</span>
+      </div>
+      <span class="home-marquee-middle-right" v-for="i in 3" :key="i">Pluriel</span>
     </div>
     <div class="home-marquee right">
       <span v-for="i in 5" :key="i">Pluriel</span>
@@ -49,8 +55,63 @@ export default {}
     color: transparent;
     transform: rotate(-5deg);
 
-    span:after {
+    span::after {
       content: '\00a0';
+    }
+
+    &-middle {
+      display: flex;
+      justify-content: center;
+
+      &-left {
+        &::after {
+          content: '' !important;
+        }
+        &::before {
+          content: '\00a0';
+        }
+      }
+
+      &-right {
+        &::after {
+          content: '\00a0';
+        }
+        &::before {
+          content: '' !important;
+        }
+      }
+
+      &-center {
+        position: relative;
+        margin: 0 60px;
+
+        span::after {
+          content: '' !important;
+        }
+        .middle {
+          span {
+          }
+          &--left,
+          &--right {
+            font-family: 'Manrope';
+            font-weight: 200;
+            font-size: 12px;
+            position: absolute;
+            transform: rotate(-90deg);
+            top: 50%;
+          }
+          &--left {
+            left: calc(-50px - 25px);
+          }
+          &--right {
+            right: calc(-50px - 25px);
+          }
+          &--center {
+            -webkit-text-stroke: transparent;
+            color: white;
+          }
+        }
+      }
     }
 
     &.left span {
