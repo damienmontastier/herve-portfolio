@@ -1,0 +1,16 @@
+$red: red;
+
+$breakpoints: (
+  default: unquote('only all'),
+  minxl: unquote('screen and (min-width: #{rem(2200px)})'),
+  xl: unquote('screen and (max-width: #{rem(1500px)})'),
+  lg: unquote('screen and (max-width: #{rem(1280px)})'),
+  sh: unquote('screen and (max-height: #{rem(767px)})'),
+  md: unquote('screen and (max-width: #{rem(1023px)})'),
+  sm: unquote('screen and (max-width: #{rem(767px)})')
+);
+
+$zindex: (
+  below: -1,
+  default: 1
+);

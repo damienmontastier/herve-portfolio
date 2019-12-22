@@ -1,0 +1,11 @@
+@import 'utils/resets';
+@import 'utils/mixins';
+@import 'utils/vars';
+
+body {
+  background: $red;
+
+  @include respond-to(sm) {
+    background: black;
+  }
+}
