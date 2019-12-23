@@ -21,7 +21,11 @@
         <span v-for="i in 3" :key="i" class="home-marquee-middle-left">{{ project.title }}</span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{ project.type }}</span>
-          <span ref="projectLink" class="middle--center">{{ project.title }}</span>
+          <span
+            ref="projectLink"
+            :data-name="project.title"
+            class="middle--center"
+          >{{ project.title }}</span>
           <span class="middle--right">{{ project.type }}</span>
         </div>
         <span v-for="i in 3" :key="i" class="home-marquee-middle-right">{{ project.title }}</span>
@@ -48,12 +52,15 @@
 
 <script>
 import gsap from 'gsap'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+// import VirtualScroll from '@/assets/js/VirtualScroll.js'
 
 export default {
   computed: {
     ...mapState({
-      projects: state => state.projects
+      projects: state => state.projects,
+      currentProject: state => state.currentProject,
+      indexProject: state => state.indexProject
     })
   },
   mounted() {
@@ -69,8 +76,12 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      setCurrentProject: 'setCurrentProject',
+      setIndexProject: 'setIndexProject'
+    }),
     handleEvents() {
-      document.addEventListener('click', this.handleMouseClick)
+      document.addEventListener('click', this.nextSlide)
 
       this.$refs.projectLink.forEach(element => {
         element.addEventListener('click', this.handleProjectSelected)
@@ -78,14 +89,30 @@ export default {
         element.addEventListener('mouseleave', this.handleProjectLeave)
       })
     },
-    handleMouseClick(e) {
-      if (e.target !== this.$refs.projectLink[0]) {
+    nextSlide(e) {
+      if (e.target !== this.$refs.projectLink[this.indexProject]) {
+        this.setIndexProject()
+        this.setCurrentProject()
+
         gsap.to(
           [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
           {
             y: '-100%',
             duration: 3,
-            ease: 'Power4.easeInOut'
+            ease: 'Power4.easeInOut',
+            onComplete: () => {
+              // gsap.set(
+              //   [
+              //     this.$refs.firstRow,
+              //     this.$refs.secondRow,
+              //     this.$refs.thirdRow
+              //   ],
+              //   {
+              //     y: '200%'
+              //   }
+              // )
+              console.log('finish')
+            }
           }
         )
       }
@@ -94,17 +121,11 @@ export default {
       console.log('click')
     },
     handleProjectHover(e) {
-      gsap.to(e.currentTarget, {
-        color: 'transparent',
-        textStroke: '1px white'
-      })
+      e.currentTarget.classList.add('active')
       this.$bus.$emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
-      gsap.to(e.currentTarget, {
-        color: 'white',
-        textStroke: '0'
-      })
+      e.currentTarget.classList.remove('active')
       this.$bus.$emit('cursorTransform', false)
     }
   }
@@ -197,8 +218,24 @@ export default {
           right: calc(-50px - 25px);
         }
         .middle--center {
-          -webkit-text-stroke: transparent;
-          color: white;
+          // -webkit-text-stroke: transparent;
+          // color: white;
+          &.active {
+            &::before {
+              height: 0%;
+            }
+          }
+          &::before {
+            content: attr(data-name);
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 60%;
+            color: white;
+            overflow: hidden;
+            transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
+          }
         }
       }
     }

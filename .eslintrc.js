@@ -20,6 +20,7 @@ module.exports = {
         asyncArrow: 'always'
       }
     ],
-    'arrow-parens': true
+    'arrow-parens': true,
+    'object-shorthand': ['error', 'always', { ignoreConstructors: true }]
   }
 }

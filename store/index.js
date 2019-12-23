@@ -1,10 +1,32 @@
 export const state = () => ({
-  projects: []
+  projects: [],
+  indexProject: 0,
+  currentProject: { index: null, project: null },
+  previousProject: { index: null, project: null },
+  nextProject: { index: null, project: null }
 })
 
 export const mutations = {
   setProjects(state, list) {
     state.projects = list
+  },
+  setIndexProject(state) {
+    if (state.indexProject === state.projects.length - 1) {
+      state.indexProject = 0
+    } else {
+      state.indexProject++
+    }
+  },
+  setCurrentProject(state) {
+    let project = {}
+
+    Object.values(state.projects).find((element, index) => {
+      if (state.indexProject === index) {
+        project = { index, element }
+      }
+    })
+
+    state.currentProject = project
   }
 }
 
@@ -23,5 +45,6 @@ export const actions = {
       return res
     })
     await commit('setProjects', projects)
+    await commit('setCurrentProject')
   }
 }

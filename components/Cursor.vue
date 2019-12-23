@@ -1,10 +1,25 @@
 <template>
   <div ref="cursor" class="cursor">
-    <svg ref="arrow" class="arrow" width="27" height="42" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      ref="arrow"
+      class="arrow"
+      width="20"
+      height="31"
+      viewBox="0 0 20 31"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g ref="arrowG" fill="#FFF" fill-rule="evenodd">
-        <path d="M12.075 0h3v38h-3z" />
-        <path d="M24.879 26.575L27 28.697l-13.16 13.2-2.122-2.122z" />
-        <path d="M2.197 26L.076 28.122 12.804 40.85l2.12-2.122z" />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8.54807 28.8591L8.99604 0.791321L11.9957 0.839196L11.5477 28.907L8.54807 28.8591Z"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M19.8379 21.6992L10.1174 30.9838L0.684998 21.6311L2.7973 19.5008L10.1565 26.7978L17.7658 19.5298L19.8379 21.6992Z"
+        />
       </g>
     </svg>
   </div>
@@ -53,7 +68,7 @@ export default {
         })
         gsap.to(this.$refs.arrow, {
           duration: 0.3,
-          rotate: '-90deg'
+          rotate: '-95deg'
         })
         gsap.to(this.$refs.arrowG, {
           fill: 'black',
