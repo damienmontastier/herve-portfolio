@@ -7,8 +7,8 @@
         :key="index"
         class="home-marquee--row left"
       >
-        <span v-for="i in 5" :key="i">{{project.title}}</span>
-        <span v-for="i in 5" :key="i">{{project.title}}</span>
+        <span v-for="i in 5" :key="i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="i">{{ project.title }}</span>
       </div>
     </div>
     <div style class="home-marquee">
@@ -18,29 +18,29 @@
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="i" class="home-marquee-middle-left">{{project.title}}</span>
+        <span v-for="i in 3" :key="i" class="home-marquee-middle-left">{{ project.title }}</span>
         <div class="home-marquee-middle-center">
-          <span class="middle--left">{{project.type}}</span>
-          <span ref="projectLink" class="middle--center">{{project.title}}</span>
-          <span class="middle--right">{{project.type}}</span>
+          <span class="middle--left">{{ project.type }}</span>
+          <span ref="projectLink" class="middle--center">{{ project.title }}</span>
+          <span class="middle--right">{{ project.type }}</span>
         </div>
-        <span v-for="i in 3" :key="i" class="home-marquee-middle-right">{{project.title}}</span>
+        <span v-for="i in 3" :key="i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
       <div
+        ref="thirdRow"
         v-for="(project,index) in projects"
         :key="index"
-        ref="thirdRow"
         class="home-marquee--row right"
       >
-        <span v-for="i in 5" :key="i">{{project.title}}</span>
-        <span v-for="i in 5" :key="i">{{project.title}}</span>
+        <span v-for="i in 5" :key="i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="i">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-pagination">
       <div class="home-pagination--current">01</div>
-      <span></span>
+      <span />
       <div class="home-pagination--total">04</div>
     </div>
   </div>
@@ -52,6 +52,11 @@ import { mapState } from 'vuex'
 import Events from '@/assets/js/Events'
 
 export default {
+  computed: {
+    ...mapState({
+      projects: (state) => state.projects
+    })
+  },
   mounted() {
     this.handleEvents()
   },
@@ -103,11 +108,6 @@ export default {
       })
       Events.emit('cursorTransform', false)
     }
-  },
-  computed: {
-    ...mapState({
-      projects: (state) => state.projects
-    })
   }
 }
 </script>

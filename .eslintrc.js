@@ -20,7 +20,6 @@ module.exports = {
         asyncArrow: 'always'
       }
     ],
-    'arrow-parens': true,
-    'space-after-keywords': true
+    'arrow-parens': ['error', 'as-needed']
   }
 }
