@@ -2,7 +2,7 @@
   <div>
     <Nav />
     <nuxt />
-    <Pointer />
+    <!-- <Pointer /> -->
   </div>
 </template>
 

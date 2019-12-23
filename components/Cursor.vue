@@ -33,35 +33,7 @@ export default {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
 
-      Events.on('cursorTransform', bool => {
-        if (bool) {
-          gsap.to(this.$refs.cursor, {
-            duration: 0.3,
-            background: 'white'
-          })
-          gsap.to(this.$refs.arrow, {
-            duration: 0.3,
-            rotate: '-90deg'
-          })
-          gsap.to(this.$refs.arrowG, {
-            fill: 'black',
-            duration: 0.3
-          })
-        } else {
-          gsap.to(this.$refs.arrow, {
-            duration: 0.3,
-            rotate: 0
-          })
-          gsap.to(this.$refs.arrowG, {
-            fill: 'white',
-            duration: 0.3
-          })
-          gsap.to(this.$refs.cursor, {
-            duration: 0.2,
-            background: 'linear-gradient(180deg, #5061ee 0%, #9d50f3 99%)'
-          })
-        }
-      })
+      Events.on('cursorTransform', this.cursorTransform)
     },
     handleMouseMove(e) {
       this.mousePosition.x = e.clientX

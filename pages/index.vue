@@ -39,13 +39,9 @@
       </div>
     </div>
     <div class="home-pagination">
-      <div class="home-pagination--current">
-        01
-      </div>
+      <div class="home-pagination--current">01</div>
       <span />
-      <div class="home-pagination--total">
-        04
-      </div>
+      <div class="home-pagination--total">04</div>
     </div>
   </div>
 </template>
