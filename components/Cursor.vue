@@ -1,7 +1,7 @@
 <template>
   <div ref="cursor" class="cursor">
-    <svg class="arrow" width="27" height="42" xmlns="http://www.w3.org/2000/svg">
-      <g fill="#FFF" fill-rule="evenodd">
+    <svg ref="arrow" class="arrow" width="27" height="42" xmlns="http://www.w3.org/2000/svg">
+      <g ref="arrowG" fill="#FFF" fill-rule="evenodd">
         <path d="M12.075 0h3v38h-3z" />
         <path d="M24.879 26.575L27 28.697l-13.16 13.2-2.122-2.122z" />
         <path d="M2.197 26L.076 28.122 12.804 40.85l2.12-2.122z" />
@@ -12,6 +12,7 @@
 
 <script>
 import gsap from 'gsap'
+import Events from '@/assets/js/Events'
 
 export default {
   data() {
@@ -31,6 +32,8 @@ export default {
   methods: {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
+
+      Events.on('cursorTransform', this.cursorTransform)
     },
     handleMouseMove(e) {
       this.mousePosition.x = e.clientX
@@ -42,6 +45,35 @@ export default {
         y: this.mousePosition.y - this.cursorParams.width / 2,
         ease: 'power4.easeOut'
       })
+    },
+    cursorTransform(bool) {
+      if (bool) {
+        gsap.to(this.$refs.cursor, {
+          duration: 1,
+          background: 'white'
+        })
+        gsap.to(this.$refs.arrow, {
+          duration: 0.5,
+          rotate: '-90deg'
+        })
+        gsap.to(this.$refs.arrowG, {
+          fill: 'black',
+          duration: 0.5
+        })
+      } else {
+        gsap.to(this.$refs.arrow, {
+          duration: 0.5,
+          rotate: 0
+        })
+        gsap.to(this.$refs.arrowG, {
+          fill: 'white',
+          duration: 0.5
+        })
+        gsap.to(this.$refs.cursor, {
+          duration: 0.2,
+          background: 'linear-gradient(180deg, #5061ee 0%, #9d50f3 99%)'
+        })
+      }
     }
   }
 }

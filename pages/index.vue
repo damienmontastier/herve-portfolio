@@ -21,7 +21,7 @@
         <span v-for="i in 3" :key="i" class="home-marquee-middle-left">{{project.title}}</span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{project.type}}</span>
-          <span class="middle--center">{{project.title}}</span>
+          <span ref="projectLink" class="middle--center">{{project.title}}</span>
           <span class="middle--right">{{project.type}}</span>
         </div>
         <span v-for="i in 3" :key="i" class="home-marquee-middle-right">{{project.title}}</span>
@@ -49,6 +49,7 @@
 <script>
 import gsap from 'gsap'
 import { mapState } from 'vuex'
+import Events from '@/assets/js/Events'
 
 export default {
   mounted() {
@@ -56,21 +57,51 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleMouseClick)
+
+    this.$refs.projectLink.forEach((element) => {
+      element.removeEventListener('click', this.handleProjectSelected)
+      element.removeEventListener('mouseover', this.handleProjectHover)
+      element.removeEventListener('mouseleave', this.handleProjectLeave)
+    })
   },
   methods: {
     handleEvents() {
       document.addEventListener('click', this.handleMouseClick)
+
+      this.$refs.projectLink.forEach((element) => {
+        element.addEventListener('click', this.handleProjectSelected)
+        element.addEventListener('mouseover', this.handleProjectHover)
+        element.addEventListener('mouseleave', this.handleProjectLeave)
+      })
     },
-    handleMouseClick() {
-      gsap.to(
-        [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
-        {
-          y: '-100%',
-          duration: 3,
-          ease: 'Power4.easeInOut'
-        }
-      )
+    handleMouseClick(e) {
+      if (e.target !== this.$refs.projectLink[0]) {
+        gsap.to(
+          [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
+          {
+            y: '-100%',
+            duration: 3,
+            ease: 'Power4.easeInOut'
+          }
+        )
+      }
+    },
+    handleProjectSelected() {
       console.log('click')
+    },
+    handleProjectHover(e) {
+      gsap.to(e.currentTarget, {
+        color: 'transparent',
+        textStroke: '1px white'
+      })
+      Events.emit('cursorTransform', true)
+    },
+    handleProjectLeave(e) {
+      gsap.to(e.currentTarget, {
+        color: 'white',
+        textStroke: '0'
+      })
+      Events.emit('cursorTransform', false)
     }
   },
   computed: {
