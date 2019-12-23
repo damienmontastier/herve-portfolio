@@ -19,7 +19,7 @@ module.exports = {
         named: 'never',
         asyncArrow: 'always'
       }
-    ]
-    // 'arrow-parens': ['error', 'as-needed']
+    ],
+    'arrow-parens': true
   }
 }
