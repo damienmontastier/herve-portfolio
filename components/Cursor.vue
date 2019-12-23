@@ -49,25 +49,25 @@ export default {
     cursorTransform(bool) {
       if (bool) {
         gsap.to(this.$refs.cursor, {
-          duration: 1,
+          duration: 0.3,
           background: 'white'
         })
         gsap.to(this.$refs.arrow, {
-          duration: 0.5,
+          duration: 0.3,
           rotate: '-90deg'
         })
         gsap.to(this.$refs.arrowG, {
           fill: 'black',
-          duration: 0.5
+          duration: 0.3
         })
       } else {
         gsap.to(this.$refs.arrow, {
-          duration: 0.5,
+          duration: 0.3,
           rotate: 0
         })
         gsap.to(this.$refs.arrowG, {
           fill: 'white',
-          duration: 0.5
+          duration: 0.3
         })
         gsap.to(this.$refs.cursor, {
           duration: 0.2,
