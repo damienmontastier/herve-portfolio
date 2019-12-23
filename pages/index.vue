@@ -49,9 +49,7 @@
 <script>
 import gsap from 'gsap'
 import { mapState } from 'vuex'
-import Events from '@/assets/js/events'
 
-console.log(Events)
 export default {
   computed: {
     ...mapState({
@@ -100,14 +98,14 @@ export default {
         color: 'transparent',
         textStroke: '1px white'
       })
-      // Events.emit('cursorTransform', true)
+      this.$bus.$emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
       gsap.to(e.currentTarget, {
         color: 'white',
         textStroke: '0'
       })
-      // Events.emit('cursorTransform', false)
+      this.$bus.$emit('cursorTransform', false)
     }
   }
 }

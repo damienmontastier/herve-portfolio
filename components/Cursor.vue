@@ -12,7 +12,6 @@
 
 <script>
 import gsap from 'gsap'
-import Events from '@/assets/js/Events'
 
 export default {
   data() {
@@ -33,7 +32,7 @@ export default {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
 
-      Events.on('cursorTransform', this.cursorTransform)
+      this.$bus.$on('cursorTransform', this.cursorTransform)
     },
     handleMouseMove(e) {
       this.mousePosition.x = e.clientX

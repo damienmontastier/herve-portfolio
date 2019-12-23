@@ -2,18 +2,18 @@
   <div>
     <Nav />
     <nuxt />
-    <!-- <Pointer /> -->
+    <Pointer />
   </div>
 </template>
 
 <script>
 import Nav from '@/components/Nav'
-// import Pointer from '@/components/Cursor'
+import Pointer from '@/components/Cursor'
 
 export default {
   components: {
-    Nav
-    // Pointer
+    Nav,
+    Pointer
   },
   head() {
     return {
