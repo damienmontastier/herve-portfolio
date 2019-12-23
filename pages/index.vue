@@ -49,7 +49,8 @@
 <script>
 import gsap from 'gsap'
 import { mapState } from 'vuex'
-import Events from '@/assets/js/Events'
+import Events from '@/assets/js/events'
+
 console.log(Events)
 export default {
   computed: {
