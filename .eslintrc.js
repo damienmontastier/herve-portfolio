@@ -20,6 +20,6 @@ module.exports = {
         asyncArrow: 'always'
       }
     ],
-    'arrow-parens': ['error', 'always', { requireForBlockBody: true }]
+    'arrow-parens': ['error', 'as-needed']
   }
 }

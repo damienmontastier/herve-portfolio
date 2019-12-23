@@ -54,7 +54,7 @@ import Events from '@/assets/js/Events'
 export default {
   computed: {
     ...mapState({
-      projects: (state) => state.projects
+      projects: state => state.projects
     })
   },
   mounted() {
@@ -63,7 +63,7 @@ export default {
   beforeDestroy() {
     document.removeEventListener('click', this.handleMouseClick)
 
-    this.$refs.projectLink.forEach((element) => {
+    this.$refs.projectLink.forEach(element => {
       element.removeEventListener('click', this.handleProjectSelected)
       element.removeEventListener('mouseover', this.handleProjectHover)
       element.removeEventListener('mouseleave', this.handleProjectLeave)
@@ -73,7 +73,7 @@ export default {
     handleEvents() {
       document.addEventListener('click', this.handleMouseClick)
 
-      this.$refs.projectLink.forEach((element) => {
+      this.$refs.projectLink.forEach(element => {
         element.addEventListener('click', this.handleProjectSelected)
         element.addEventListener('mouseover', this.handleProjectHover)
         element.addEventListener('mouseleave', this.handleProjectLeave)

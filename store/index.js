@@ -15,7 +15,7 @@ export const actions = {
       false,
       /\.json$/
     )
-    const projects = files.keys().map((key) => {
+    const projects = files.keys().map(key => {
       const res = files(key)
 
       res.slug = key.slice(2, -5)
