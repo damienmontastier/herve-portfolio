@@ -18,15 +18,23 @@ export const mutations = {
     }
   },
   setCurrentProject(state) {
-    let project = {}
+    let currentProject = {}
+    let nextProject = {}
+    let previousProject = {}
 
-    Object.values(state.projects).find((element, index) => {
+    Object.values(state.projects).find((project, index) => {
       if (state.indexProject === index) {
-        project = { index, element }
+        currentProject = { index, project }
+      } else if (state.indexProject > index) {
+        nextProject = { index, project }
+      } else if (state.indexProject < index) {
+        previousProject = { index, project }
       }
     })
 
-    state.currentProject = project
+    state.currentProject = currentProject
+    state.nextProject = nextProject
+    state.previousProject = previousProject
   }
 }
 

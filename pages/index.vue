@@ -7,8 +7,8 @@
         :key="index"
         class="home-marquee--row left"
       >
-        <span v-for="i in 5" :key="i">{{ project.title }}</span>
-        <span v-for="i in 5" :key="i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'yo'+i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'ya'+i">{{ project.title }}</span>
       </div>
     </div>
     <div style class="home-marquee">
@@ -18,7 +18,7 @@
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="i" class="home-marquee-middle-left">{{ project.title }}</span>
+        <span v-for="i in 3" :key="'ye'+i" class="home-marquee-middle-left">{{ project.title }}</span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{ project.type }}</span>
           <span
@@ -28,7 +28,7 @@
           >{{ project.title }}</span>
           <span class="middle--right">{{ project.type }}</span>
         </div>
-        <span v-for="i in 3" :key="i" class="home-marquee-middle-right">{{ project.title }}</span>
+        <span v-for="i in 3" :key="'yu'+i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
@@ -38,8 +38,8 @@
         :key="index"
         class="home-marquee--row right"
       >
-        <span v-for="i in 5" :key="i">{{ project.title }}</span>
-        <span v-for="i in 5" :key="i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'yr'+i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'yn'+i">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-pagination">
@@ -47,7 +47,7 @@
       <div class="home-pagination--line">
         <span ref="line"></span>
       </div>
-      <div class="home-pagination--total">04</div>
+      <div class="home-pagination--total">0{{projects.length}}</div>
     </div>
   </div>
 </template>
