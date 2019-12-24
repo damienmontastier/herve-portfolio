@@ -56,6 +56,11 @@ import { mapState, mapMutations } from 'vuex'
 // import VirtualScroll from '@/assets/js/VirtualScroll.js'
 
 export default {
+  data() {
+    return {
+      sliderInProgress: false
+    }
+  },
   computed: {
     ...mapState({
       projects: state => state.projects,
@@ -90,28 +95,22 @@ export default {
       })
     },
     nextSlide(e) {
-      if (e.target !== this.$refs.projectLink[this.indexProject]) {
+      if (
+        e.target !== this.$refs.projectLink[this.indexProject] &&
+        !this.sliderInProgress
+      ) {
+        this.sliderInProgress = true
         this.setIndexProject()
         this.setCurrentProject()
 
         gsap.to(
           [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
           {
-            y: '-100%',
-            duration: 3,
+            yPercent: -this.indexProject * 100,
+            duration: 2,
             ease: 'Power4.easeInOut',
             onComplete: () => {
-              // gsap.set(
-              //   [
-              //     this.$refs.firstRow,
-              //     this.$refs.secondRow,
-              //     this.$refs.thirdRow
-              //   ],
-              //   {
-              //     y: '200%'
-              //   }
-              // )
-              console.log('finish')
+              this.sliderInProgress = false
             }
           }
         )
