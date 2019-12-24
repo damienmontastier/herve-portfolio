@@ -43,8 +43,10 @@
       </div>
     </div>
     <div class="home-pagination">
-      <div class="home-pagination--current">01</div>
-      <span />
+      <div class="home-pagination--current">0{{indexProject + 1}}</div>
+      <div class="home-pagination--line">
+        <span ref="line"></span>
+      </div>
       <div class="home-pagination--total">04</div>
     </div>
   </div>
@@ -102,6 +104,15 @@ export default {
         this.sliderInProgress = true
         this.setIndexProject()
         this.setCurrentProject()
+
+        const tl = gsap.timeline()
+        tl.to(this.$refs.line, 0.5, {
+          float: 'right',
+          width: '0%'
+        }).to(this.$refs.line, 0.5, {
+          width: '100%',
+          float: 'left'
+        })
 
         gsap.to(
           [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
@@ -257,11 +268,17 @@ export default {
       font-weight: 200;
     }
 
-    span {
+    &--line {
       width: 40px;
       height: 1px;
-      background: white;
       margin: 0 10px;
+      span {
+        background: white;
+        width: 100%;
+        height: 100%;
+        display: block;
+        float: right;
+      }
     }
   }
 }
