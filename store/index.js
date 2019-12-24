@@ -25,10 +25,34 @@ export const mutations = {
     Object.values(state.projects).find((project, index) => {
       if (state.indexProject === index) {
         currentProject = { index, project }
-      } else if (state.indexProject > index) {
-        nextProject = { index, project }
-      } else if (state.indexProject < index) {
-        previousProject = { index, project }
+      } else if (state.indexProject === 0) {
+        previousProject = {
+          index: state.projects.length - 1,
+          project: state.projects[state.projects.length - 1]
+        }
+        nextProject = {
+          index: state.indexProject + 1,
+          project: state.projects[state.indexProject + 1]
+        }
+      } else if (state.indexProject === state.projects.length - 1) {
+        nextProject = {
+          index: 0,
+          project: state.projects[0]
+        }
+        previousProject = {
+          index: state.indexProject - 1,
+          project: state.projects[state.indexProject - 1]
+        }
+      } else if (index > state.indexProject) {
+        nextProject = {
+          index,
+          project
+        }
+      } else if (index < state.indexProject) {
+        previousProject = {
+          index,
+          project
+        }
       }
     })
 
