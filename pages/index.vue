@@ -67,6 +67,8 @@ export default {
     ...mapState({
       projects: state => state.projects,
       currentProject: state => state.currentProject,
+      nextProject: state => state.nextProject,
+      previousProject: state => state.previousProject,
       indexProject: state => state.indexProject
     })
   },
