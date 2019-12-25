@@ -119,11 +119,26 @@ export default {
         gsap.to(
           [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
           {
-            yPercent: -this.indexProject * 100,
+            yPercent: `-=100`,
             duration: 2,
             ease: 'Power4.easeInOut',
             onComplete: () => {
               this.sliderInProgress = false
+
+              gsap.set(
+                [
+                  this.$refs.firstRow[this.previousProject.index],
+                  this.$refs.secondRow[this.previousProject.index],
+                  this.$refs.thirdRow[this.previousProject.index]
+                ],
+                {
+                  yPercent:
+                    100 * (this.projects.length - 1) +
+                    (this.previousProject.index !== 0
+                      ? -(this.previousProject.index * 100)
+                      : 0)
+                }
+              )
             }
           }
         )
@@ -157,7 +172,8 @@ export default {
     transform: rotate(-5deg);
     overflow: hidden;
     width: 100%;
-    height: 30%;
+    height: 35vh;
+    position: relative;
 
     &--row {
       display: flex;
@@ -243,7 +259,7 @@ export default {
             position: absolute;
             top: 0;
             left: 0;
-            height: 60%;
+            height: 100%;
             color: white;
             overflow: hidden;
             transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
