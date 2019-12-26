@@ -43,7 +43,13 @@
       </div>
     </div>
     <div class="home-pagination">
-      <div class="home-pagination--current">0{{indexProject + 1}}</div>
+      <div class="home-pagination--current">
+        <span
+          ref="currentPagination"
+          v-for="(project, index) in projects"
+          :key="index"
+        >0{{index + 1}}</span>
+      </div>
       <div class="home-pagination--line">
         <span ref="line"></span>
       </div>
@@ -114,6 +120,20 @@ export default {
         }).to(this.$refs.line, 0.5, {
           width: '100%',
           float: 'left'
+        })
+
+        gsap.to(this.$refs.currentPagination, {
+          duration: 0.5,
+          yPercent: '-=100',
+          onComplete: () => {
+            gsap.set(this.$refs.currentPagination[this.previousProject.index], {
+              yPercent:
+                100 * (this.projects.length - 1) +
+                (this.previousProject.index !== 0
+                  ? -(this.previousProject.index * 100)
+                  : 0)
+            })
+          }
         })
 
         gsap.to(
@@ -274,22 +294,33 @@ export default {
     bottom: 30px;
     right: 40px;
     display: flex;
-    align-items: center;
     font-family: 'Manrope';
     color: white;
     font-size: 14px;
+    height: 15px;
+    max-height: 15px;
+    overflow: hidden;
 
     &--current {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
       font-weight: 900;
+
+      // span:not(:last-child) {
+      //   margin-bottom: 10px;
+      // }
     }
     &--total {
       font-weight: 200;
+      align-self: center;
     }
 
     &--line {
       width: 40px;
       height: 1px;
       margin: 0 10px;
+      align-self: center;
       span {
         background: white;
         width: 100%;

@@ -95,8 +95,8 @@ export default {
 
 <style lang="scss" scoped>
 .cursor {
-  height: 100px;
-  width: 100px;
+  height: 20px;
+  width: 20px;
   position: absolute;
   top: 0;
   left: 0;

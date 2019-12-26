@@ -2,10 +2,10 @@
   <nav class="nav-menu">
     <ul>
       <li>
-        <a>About</a>
+        <a data-value="About">About</a>
       </li>
       <li>
-        <a>Works</a>
+        <a data-value="Works">Works</a>
       </li>
     </ul>
   </nav>
@@ -26,6 +26,13 @@ export default {}
       font-size: 12px;
       font-family: 'Manrope';
       text-transform: uppercase;
+      overflow: hidden;
+
+      &:hover {
+        a {
+          transform: translateY(-100%);
+        }
+      }
 
       &:first-child {
         margin-right: 20px;
@@ -33,6 +40,16 @@ export default {}
       a {
         text-decoration: none;
         color: white;
+        position: relative;
+        display: block;
+        transition: transform 0.2s ease-out;
+
+        &:after {
+          content: attr(data-value);
+          position: absolute;
+          top: 100%;
+          left: 0;
+        }
       }
     }
   }
