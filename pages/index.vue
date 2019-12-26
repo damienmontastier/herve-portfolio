@@ -79,6 +79,7 @@ export default {
     })
   },
   mounted() {
+    this.$cursor.add()
     this.handleEvents()
   },
   beforeDestroy() {
@@ -307,9 +308,10 @@ export default {
       align-items: center;
       font-weight: 900;
 
-      // span:not(:last-child) {
-      //   margin-bottom: 10px;
-      // }
+      span {
+        font-size: 15px;
+        // padding: 5px 0;
+      }
     }
     &--total {
       font-weight: 200;

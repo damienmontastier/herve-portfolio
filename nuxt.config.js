@@ -100,7 +100,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/bus'],
+  plugins: ['~/plugins/bus', { src: '~/plugins/cursor', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
