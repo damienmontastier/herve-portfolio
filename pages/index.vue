@@ -170,7 +170,8 @@ export default {
     },
     handleProjectHover(e) {
       e.currentTarget.classList.add('active')
-      this.$bus.$emit('cursorTransform', true)
+      console.log('fdfsd', this.$bus)
+      this.$bus.$emit('blockCursor', true)
     },
     handleProjectLeave(e) {
       e.currentTarget.classList.remove('active')

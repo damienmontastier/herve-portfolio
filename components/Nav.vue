@@ -1,11 +1,11 @@
 <template>
   <nav class="nav-menu">
     <ul class="nav-menu-row">
-      <li>
-        <a class="nav-menu--link cursor-js" data-value="About">About</a>
+      <li class="cursor-js">
+        <a class="nav-menu--link" data-value="About">About</a>
       </li>
-      <li>
-        <a class="nav-menu--link cursor-js" data-value="Works">Works</a>
+      <li class="cursor-js">
+        <a class="nav-menu--link" data-value="Works">Works</a>
       </li>
     </ul>
   </nav>

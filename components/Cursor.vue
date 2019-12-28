@@ -47,7 +47,9 @@ export default {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
 
-      this.$bus.$on('cursorTransform', this.cursorTransform)
+      this.$bus.$on('cursorTransform', bool => {
+        console.log('yah')
+      })
     },
     handleMouseMove(e) {
       this.mousePosition.x = e.clientX
