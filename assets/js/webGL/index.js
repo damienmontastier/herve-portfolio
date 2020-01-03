@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import Camera from './utils/Camera'
-import Viewport from './utils/Viewport'
+// import Viewport from './utils/Viewport'
 
 import Renderer from './renderer'
 import Clock from './utils/Clock'
@@ -26,7 +26,7 @@ export default class WebGL {
     // scene
     this.scene = new THREE.Scene()
 
-    //renderer
+    // renderer
     this.renderer = Renderer
     this.renderer.init({
       canvas: this.canvas,
@@ -34,10 +34,10 @@ export default class WebGL {
       camera: Camera
     })
 
-    //mouse
+    // mouse
     this.mouse = new THREE.Vector2()
 
-    //axes
+    // axes
     // this.scene.add(new THREE.AxesHelper(Viewport.width / 2))
   }
 
@@ -52,7 +52,7 @@ export default class WebGL {
 
   update() {
     // requestAnimationFrame(this.update.bind(this))
-    let delta = Clock.getDelta()
+    const delta = Clock.getDelta()
     this.renderer.render(delta)
   }
 

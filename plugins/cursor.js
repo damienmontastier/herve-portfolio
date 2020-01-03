@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Cursor from '@/assets/js/Cursor'
+// import Vue from 'vue'
+// import Cursor from '@/assets/js/Cursor'
 
-const cursor = {}
+// const cursor = {}
 
-cursor.install = () => {
-  Vue.prototype.$cursor = Cursor
-}
+// cursor.install = () => {
+//   Vue.prototype.$cursor = Cursor
+// }
 
-Vue.use(cursor)
+// Vue.use(cursor)

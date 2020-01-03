@@ -27,6 +27,7 @@
 
 <script>
 import gsap from 'gsap'
+import Emitter from '~/assets/js/events'
 
 export default {
   data() {
@@ -47,20 +48,22 @@ export default {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
 
-      this.$bus.$on('cursorTransform', bool => {
-        console.log('yah')
-      })
+      Emitter.on('cursorTransform', this.cursorTransform)
+
+      Emitter.on('blockCursor', bool => (this.cursorBlocked = bool))
     },
     handleMouseMove(e) {
       this.mousePosition.x = e.clientX
       this.mousePosition.y = e.clientY
 
-      gsap.to(this.$refs.cursor, {
-        duration: 0.5,
-        x: this.mousePosition.x - this.cursorParams.width / 2,
-        y: this.mousePosition.y - this.cursorParams.width / 2,
-        ease: 'power4.easeOut'
-      })
+      if (!this.cursorBlocked) {
+        gsap.to(this.$refs.cursor, {
+          duration: 0.5,
+          x: this.mousePosition.x - this.cursorParams.width / 2,
+          y: this.mousePosition.y - this.cursorParams.width / 2,
+          ease: 'power4.easeOut'
+        })
+      }
     },
     cursorTransform(bool) {
       if (bool) {
@@ -108,5 +111,15 @@ export default {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+
+  &.is-active {
+    background: transparent !important;
+    border: 1px solid #d8d8d8;
+
+    & svg {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
 }
 </style>

@@ -12,7 +12,13 @@
 </template>
 
 <script>
-export default {}
+import Cursor from '@/assets/js/Cursor'
+
+export default {
+  mounted() {
+    Cursor.add()
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -20,6 +26,8 @@ export default {}
   position: fixed;
   top: 30px;
   left: 40px;
+  z-index: 999;
+
   ul {
     display: inline-flex;
     li {

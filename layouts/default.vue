@@ -3,20 +3,20 @@
     <Nav />
     <nuxt />
     <Pointer />
-    <WebGL />
+    <!-- <WebGL /> -->
   </div>
 </template>
 
 <script>
 import Nav from '@/components/Nav'
 import Pointer from '@/components/Cursor'
-import WebGL from '@/components/WebGL'
+// import WebGL from '@/components/WebGL'
 
 export default {
   components: {
     Nav,
-    Pointer,
-    WebGL
+    Pointer
+    // WebGL
   },
   head() {
     return {

@@ -1,5 +1,5 @@
 <template>
-  <canvas class="webGLScene"></canvas>
+  <canvas class="webGLScene" />
 </template>
 
 <script>

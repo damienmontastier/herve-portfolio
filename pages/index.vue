@@ -48,12 +48,12 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-        >0{{index + 1}}</span>
+        >0{{ index + 1 }}</span>
       </div>
       <div class="home-pagination--line">
-        <span ref="line"></span>
+        <span ref="line" />
       </div>
-      <div class="home-pagination--total">0{{projects.length}}</div>
+      <div class="home-pagination--total">0{{ projects.length }}</div>
     </div>
   </div>
 </template>
@@ -62,6 +62,7 @@
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
 // import VirtualScroll from '@/assets/js/VirtualScroll.js'
+import Emitter from '~/assets/js/events'
 
 export default {
   data() {
@@ -79,7 +80,7 @@ export default {
     })
   },
   mounted() {
-    this.$cursor.add()
+    // this.$cursor.add()
     this.handleEvents()
   },
   beforeDestroy() {
@@ -170,12 +171,11 @@ export default {
     },
     handleProjectHover(e) {
       e.currentTarget.classList.add('active')
-      console.log('fdfsd', this.$bus)
-      this.$bus.$emit('blockCursor', true)
+      Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
       e.currentTarget.classList.remove('active')
-      this.$bus.$emit('cursorTransform', false)
+      Emitter.emit('cursorTransform', false)
     }
   }
 }

@@ -1,12 +1,12 @@
 import gsap from 'gsap'
-// import Events from '../../plugins/bus'
-import Events from '@/plugins/bus'
+import Emitter from '~/assets/js/events'
 
 class Cursor {
   constructor() {
     this.cursorElements = []
     this.isHover = false
   }
+
   add = () => {
     const elements = document.querySelectorAll('.cursor-js')
     elements.forEach(element => {
@@ -14,37 +14,39 @@ class Cursor {
     })
     this.addEvents()
   }
+
   addEvents = () => {
     this.cursorElements.forEach(element => {
-      element.addEventListener('mouseenter', this.handleHover)
+      element.addEventListener('mouseover', this.handleHover)
       element.addEventListener('mouseleave', this.handleHoverOut)
     })
   }
-  handleHover = e => {
-    const {
-      left,
-      top,
-      width,
-      height,
-      right,
-      bottom
-    } = e.currentTarget.getBoundingClientRect()
-    console.log(left, top, width, height, right, bottom)
 
-    console.log('here', Events)
-    Events.$on('blockCursor', () => {
-      console.log('yos')
-    })
+  handleHover = e => {
+    Emitter.emit('blockCursor', true)
+
+    const { top, right } = e.currentTarget.getBoundingClientRect()
+
+    document.querySelector('.cursor').classList.add('is-active')
 
     gsap.to('.cursor', {
-      height: '10px',
+      x: right,
+      y: top - 10,
       width: '10px',
-      x: 100,
-      y: 50
+      height: '10px',
+      duration: 0.5
     })
   }
+
   handleHoverOut = () => {
-    gsap.set('.cursor', { clearProps: 'all' })
+    Emitter.emit('blockCursor', false)
+    document.querySelector('.cursor').classList.remove('is-active')
+
+    gsap.to('.cursor', {
+      height: '100px',
+      width: '100px',
+      duration: 0.5
+    })
   }
 }
 const cursor = new Cursor()
