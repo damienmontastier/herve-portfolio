@@ -57,8 +57,8 @@
     </div>
     <div ref="gallery" class="home--gallery">
       <picture>
-        <source srcset="https://i.picsum.photos/id/593/1000/800.jpg" media="(min-width: 600px)" />
-        <img ref="galleryImage" src="https://i.picsum.photos/id/593/1000/800.jpg" alt />
+        <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+        <img ref="galleryImage" src="https://picsum.photos/2000/1500" alt />
       </picture>
     </div>
   </div>
@@ -181,16 +181,16 @@ export default {
       console.log(e)
       const { width, height } = this.$refs.gallery.getBoundingClientRect()
       gsap.to(this.$refs.gallery, {
-        x: e.clientX - window.innerWidth / 2,
-        y: e.clientY - window.innerHeight / 2,
+        x: (e.clientX - window.innerWidth / 2) * 0.5,
+        y: (e.clientY - window.innerHeight / 2) * 0.5,
         duration: 1,
-        ease: 'power4.out'
+        ease: 'power1.out'
       })
       gsap.to(this.$refs.galleryImage, {
         x: e.clientX - width,
         y: e.clientY - height,
-        duration: 5,
-        ease: 'power4.out'
+        duration: 1,
+        ease: 'power1.out'
       })
     },
     handleProjectHover(e) {
@@ -365,7 +365,7 @@ export default {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-
+    background: red;
     &.active {
       opacity: 1;
       visibility: visible;
@@ -373,6 +373,8 @@ export default {
 
     img {
       width: 200%;
+      margin-top: -50%;
+      margin-right: -50%;
     }
   }
 }

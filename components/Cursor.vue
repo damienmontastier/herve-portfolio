@@ -61,7 +61,7 @@ export default {
           duration: 0.5,
           x: this.mousePosition.x - this.cursorParams.width / 2,
           y: this.mousePosition.y - this.cursorParams.width / 2,
-          ease: 'power4.easeOut'
+          ease: 'power1.out'
         })
       }
     },
