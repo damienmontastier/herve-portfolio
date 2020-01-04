@@ -56,17 +56,14 @@
       <div class="home-pagination--total">0{{ projects.length }}</div>
     </div>
     <div ref="gallery" class="home--gallery">
-      <!-- <div ref="galleryImage" class="home--gallery-holder"> -->
-
-      <div ref="galleryImage" class="home--gallery-holder">
-        <picture>
-          <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
-          <img src="https://picsum.photos/2000/1500" alt />
-        </picture>
+      <div ref="galleryMask" class="home--gallery-mask">
+        <div ref="galleryImage" class="home--gallery-holder">
+          <picture v-for="(project, index) in projects" :key="index">
+            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+            <img src="https://picsum.photos/2000/1500" alt />
+          </picture>
+        </div>
       </div>
-
-      <!-- <div class="image"></div> -->
-      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -373,32 +370,28 @@ export default {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    background: red;
+    // background: red;
     &.active {
       opacity: 1;
       visibility: visible;
+
+      .home--gallery-mask {
+        height: 100%;
+      }
     }
 
-    // &-holder {
-    //   width: 200%;
-    //   height: 200%;
-    //   position: absolute;
-    //   .image {
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     right: 0;
-    //     bottom: 0;
-    //     background-image: url(https://picsum.photos/2000/1500);
-    //     background-size: cover;
-    //     background-position: -50%;
-    //     background-repeat: no-repeat;
-    //   }
-    // }
-
+    &-mask {
+      height: 0%;
+      overflow: hidden;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transition: all 0.5s ease-out;
+    }
     &-holder {
       width: 200%;
-      height: 200%;
+      height: 100vh;
       position: absolute;
       top: -50%;
       left: -50%;
@@ -406,11 +399,6 @@ export default {
       img {
         width: 100%;
         height: 100%;
-        // position: absolute;
-        // top: -50%;
-        // left: -25%;
-        // right: 0;
-        // bottom: 0;
       }
     }
   }
