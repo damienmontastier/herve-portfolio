@@ -55,6 +55,12 @@
       </div>
       <div class="home-pagination--total">0{{ projects.length }}</div>
     </div>
+    <div ref="gallery" class="home--gallery">
+      <picture>
+        <source srcset="https://i.picsum.photos/id/593/1000/800.jpg" media="(min-width: 600px)" />
+        <img ref="galleryImage" src="https://i.picsum.photos/id/593/1000/800.jpg" alt />
+      </picture>
+    </div>
   </div>
 </template>
 
@@ -90,6 +96,7 @@ export default {
       element.removeEventListener('click', this.handleProjectSelected)
       element.removeEventListener('mouseover', this.handleProjectHover)
       element.removeEventListener('mouseleave', this.handleProjectLeave)
+      element.addEventListener('mousemove', this.handleMoveGallery)
     })
   },
   methods: {
@@ -102,6 +109,7 @@ export default {
 
       this.$refs.projectLink.forEach(element => {
         element.addEventListener('click', this.handleProjectSelected)
+        element.addEventListener('mousemove', this.handleMoveGallery)
         element.addEventListener('mouseover', this.handleProjectHover)
         element.addEventListener('mouseleave', this.handleProjectLeave)
       })
@@ -169,11 +177,29 @@ export default {
     handleProjectSelected() {
       console.log('click')
     },
+    handleMoveGallery(e) {
+      console.log(e)
+      const { width, height } = this.$refs.gallery.getBoundingClientRect()
+      gsap.to(this.$refs.gallery, {
+        x: e.clientX - window.innerWidth / 2,
+        y: e.clientY - window.innerHeight / 2,
+        duration: 1,
+        ease: 'power4.out'
+      })
+      gsap.to(this.$refs.galleryImage, {
+        x: e.clientX - width,
+        y: e.clientY - height,
+        duration: 5,
+        ease: 'power4.out'
+      })
+    },
     handleProjectHover(e) {
+      this.$refs.gallery.classList.add('active')
       e.currentTarget.classList.add('active')
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
+      this.$refs.gallery.classList.remove('active')
       e.currentTarget.classList.remove('active')
       Emitter.emit('cursorTransform', false)
     }
@@ -268,8 +294,6 @@ export default {
           right: calc(-50px - 25px);
         }
         .middle--center {
-          // -webkit-text-stroke: transparent;
-          // color: white;
           &.active {
             &::before {
               height: 0%;
@@ -331,6 +355,24 @@ export default {
         display: block;
         float: right;
       }
+    }
+  }
+  &--gallery {
+    position: absolute;
+    clip: rect(0px, 860px, 485px, 0px);
+    width: 860px;
+    height: 485px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    img {
+      width: 200%;
     }
   }
 }
