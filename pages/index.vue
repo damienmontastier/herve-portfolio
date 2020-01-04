@@ -183,13 +183,13 @@ export default {
       gsap.to(this.$refs.gallery, {
         x: (e.clientX - window.innerWidth / 2) * 0.5,
         y: (e.clientY - window.innerHeight / 2) * 0.5,
-        duration: 1,
+        duration: 0.5,
         ease: 'power1.out'
       })
       gsap.to(this.$refs.galleryImage, {
         x: e.clientX - width,
         y: e.clientY - height,
-        duration: 1,
+        duration: 0.5,
         ease: 'power1.out'
       })
     },
