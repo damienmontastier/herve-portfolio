@@ -56,10 +56,17 @@
       <div class="home-pagination--total">0{{ projects.length }}</div>
     </div>
     <div ref="gallery" class="home--gallery">
-      <picture>
-        <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
-        <img ref="galleryImage" src="https://picsum.photos/2000/1500" alt />
-      </picture>
+      <!-- <div ref="galleryImage" class="home--gallery-holder"> -->
+
+      <div ref="galleryImage" class="home--gallery-holder">
+        <picture>
+          <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+          <img src="https://picsum.photos/2000/1500" alt />
+        </picture>
+      </div>
+
+      <!-- <div class="image"></div> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -178,17 +185,18 @@ export default {
       console.log('click')
     },
     handleMoveGallery(e) {
-      console.log(e)
       const { width, height } = this.$refs.gallery.getBoundingClientRect()
+
       gsap.to(this.$refs.gallery, {
         x: (e.clientX - window.innerWidth / 2) * 0.5,
         y: (e.clientY - window.innerHeight / 2) * 0.5,
         duration: 0.5,
         ease: 'power1.out'
       })
+
       gsap.to(this.$refs.galleryImage, {
-        x: e.clientX - width,
-        y: e.clientY - height,
+        x: e.offsetX - width / 2,
+        y: (e.offsetY - height / 2) * 0.8,
         duration: 0.5,
         ease: 'power1.out'
       })
@@ -371,10 +379,39 @@ export default {
       visibility: visible;
     }
 
-    img {
+    // &-holder {
+    //   width: 200%;
+    //   height: 200%;
+    //   position: absolute;
+    //   .image {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     background-image: url(https://picsum.photos/2000/1500);
+    //     background-size: cover;
+    //     background-position: -50%;
+    //     background-repeat: no-repeat;
+    //   }
+    // }
+
+    &-holder {
       width: 200%;
-      margin-top: -50%;
-      margin-left: -50%;
+      height: 200%;
+      position: absolute;
+      top: -50%;
+      left: -50%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        // position: absolute;
+        // top: -50%;
+        // left: -25%;
+        // right: 0;
+        // bottom: 0;
+      }
     }
   }
 }
