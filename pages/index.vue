@@ -374,7 +374,7 @@ export default {
     img {
       width: 200%;
       margin-top: -50%;
-      margin-right: -50%;
+      margin-left: -50%;
     }
   }
 }
