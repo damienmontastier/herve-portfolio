@@ -111,6 +111,7 @@ export default {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  z-index: 999999;
 
   &.is-active {
     background: transparent !important;

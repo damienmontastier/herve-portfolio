@@ -197,13 +197,24 @@ export default {
       })
 
       gsap.to(this.$refs.galleryImage, {
-        x: e.offsetX - width / 2,
-        y: (e.offsetY - height / 2) * 0.8,
+        x: (e.offsetX - width / 2) * 0.65,
+        y: (e.offsetY - height / 2) * 0.65,
         duration: 0.5,
         ease: 'power1.out'
       })
     },
     handleProjectHover(e) {
+      const divCenter = document.querySelectorAll(
+        '.home-marquee-middle-center'
+      )[this.currentProject.index]
+
+      const { top, left } = divCenter.getBoundingClientRect()
+      const pPrime = divCenter.cloneNode(true)
+      pPrime.classList.add('frontOf')
+      pPrime.style.left = left
+      pPrime.style.top = top
+      document.querySelector('.home-marquee-middle').appendChild(pPrime)
+
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
       )
@@ -238,6 +249,10 @@ export default {
     width: 100%;
     height: 35vh;
     position: relative;
+
+    // &:nth-child(2) {
+    //   z-index: 999;
+    // }
 
     &--row {
       display: flex;
@@ -327,6 +342,13 @@ export default {
             transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
           }
         }
+        &.frontOf {
+          margin: 0;
+          pointer-events: none;
+          position: absolute;
+          z-index: 9999999;
+          height: 100%;
+        }
       }
     }
   }
@@ -402,10 +424,11 @@ export default {
     }
     &-holder {
       width: 150%;
-      height: 150vh;
+      height: 100vh;
       position: absolute;
       top: -25%;
       left: 0;
+      opacity: 0.85;
 
       picture {
         opacity: 0;
