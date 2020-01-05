@@ -58,7 +58,12 @@
     <div ref="gallery" class="home--gallery">
       <div ref="galleryMask" class="home--gallery-mask">
         <div ref="galleryImage" class="home--gallery-holder">
-          <picture v-for="(project, index) in projects" :key="index">
+          <picture
+            class="pictures"
+            ref="galleryPictures"
+            v-for="(project, index) in projects"
+            :key="index"
+          >
             <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
@@ -199,11 +204,17 @@ export default {
       })
     },
     handleProjectHover(e) {
+      this.$refs.galleryPictures[this.currentProject.index].classList.add(
+        'active'
+      )
       this.$refs.gallery.classList.add('active')
       e.currentTarget.classList.add('active')
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
+      this.$refs.galleryPictures[this.currentProject.index].classList.remove(
+        'active'
+      )
       this.$refs.gallery.classList.remove('active')
       e.currentTarget.classList.remove('active')
       Emitter.emit('cursorTransform', false)
@@ -387,18 +398,31 @@ export default {
       bottom: 0;
       left: 0;
       width: 100%;
-      transition: all 0.5s ease-out;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     &-holder {
       width: 200%;
-      height: 100vh;
+      height: 200vh;
       position: absolute;
       top: -50%;
       left: -50%;
 
-      img {
-        width: 100%;
-        height: 100%;
+      picture {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        &.active {
+          opacity: 1;
+          visibility: visible;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
