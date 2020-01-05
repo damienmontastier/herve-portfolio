@@ -381,7 +381,7 @@ export default {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    // background: red;
+
     &.active {
       opacity: 1;
       visibility: visible;
@@ -401,11 +401,11 @@ export default {
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     &-holder {
-      width: 200%;
-      height: 200vh;
+      width: 150%;
+      height: 150vh;
       position: absolute;
-      top: -50%;
-      left: -50%;
+      top: -25%;
+      left: 0;
 
       picture {
         opacity: 0;
