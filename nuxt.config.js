@@ -111,7 +111,10 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/eslint-module'],
+  modules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],
+  styleResources: {
+    scss: ['assets/scss/main.scss']
+  },
   /*
    ** Build configuration
    */

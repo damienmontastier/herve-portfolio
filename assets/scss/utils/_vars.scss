@@ -2,7 +2,7 @@ $black: #111111;
 
 $breakpoints: (
   default: unquote('only all'),
-  minxl: unquote('screen and (min-width: #{rem(2200px)})'),
+  xxl: unquote('screen and (min-width: #{rem(2000px)})'),
   xl: unquote('screen and (max-width: #{rem(1500px)})'),
   lg: unquote('screen and (max-width: #{rem(1280px)})'),
   sh: unquote('screen and (max-height: #{rem(767px)})'),

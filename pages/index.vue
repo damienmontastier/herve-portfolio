@@ -3,43 +3,51 @@
     <div class="home-marquee">
       <div
         ref="firstRow"
-        v-for="(project,index) in projects"
+        v-for="(project, index) in projects"
         :key="index"
         class="home-marquee--row left"
       >
-        <span v-for="i in 5" :key="'yo'+i">{{ project.title }}</span>
-        <span v-for="i in 5" :key="'ya'+i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'yo' + i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'ya' + i">{{ project.title }}</span>
       </div>
     </div>
     <div style class="home-marquee">
       <div
         ref="secondRow"
-        v-for="(project,index) in projects"
+        v-for="(project, index) in projects"
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="'ye'+i" class="home-marquee-middle-left">{{ project.title }}</span>
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{
+          project.title
+        }}</span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{ project.type }}</span>
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-          >{{ project.title }}</span>
+            >{{ project.title }}</span
+          >
           <span class="middle--right">{{ project.type }}</span>
         </div>
-        <span v-for="i in 3" :key="'yu'+i" class="home-marquee-middle-right">{{ project.title }}</span>
+        <span
+          v-for="i in 3"
+          :key="'yu' + i"
+          class="home-marquee-middle-right"
+          >{{ project.title }}</span
+        >
       </div>
     </div>
     <div class="home-marquee">
       <div
         ref="thirdRow"
-        v-for="(project,index) in projects"
+        v-for="(project, index) in projects"
         :key="index"
         class="home-marquee--row right"
       >
-        <span v-for="i in 5" :key="'yr'+i">{{ project.title }}</span>
-        <span v-for="i in 5" :key="'yn'+i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'yr' + i">{{ project.title }}</span>
+        <span v-for="i in 5" :key="'yn' + i">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-pagination">
@@ -48,7 +56,8 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-        >0{{ index + 1 }}</span>
+          >0{{ index + 1 }}</span
+        >
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -64,7 +73,10 @@
             v-for="(project, index) in projects"
             :key="index"
           >
-            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+            <source
+              srcset="https://picsum.photos/2000/1500"
+              media="(min-width: 600px)"
+            />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
@@ -76,7 +88,6 @@
 <script>
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
-// import VirtualScroll from '@/assets/js/VirtualScroll.js'
 import Emitter from '~/assets/js/events'
 
 export default {
@@ -235,6 +246,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// @import './';
+
 .home {
   min-height: 100vh;
   height: 100vh;
@@ -250,10 +263,6 @@ export default {
     height: 35vh;
     position: relative;
 
-    // &:nth-child(2) {
-    //   z-index: 999;
-    // }
-
     &--row {
       display: flex;
       white-space: nowrap;
@@ -266,6 +275,9 @@ export default {
       text-transform: uppercase;
       -webkit-text-stroke: 1px #ffffff;
       color: transparent;
+      @include respond-to(xxl) {
+        font-size: 280px;
+      }
 
       span::after {
         content: '\00a0';
@@ -373,7 +385,6 @@ export default {
 
       span {
         font-size: 15px;
-        // padding: 5px 0;
       }
     }
     &--total {
@@ -428,7 +439,7 @@ export default {
       position: absolute;
       top: -25%;
       left: 0;
-      opacity: 0.85;
+      opacity: 0.9;
 
       picture {
         opacity: 0;
