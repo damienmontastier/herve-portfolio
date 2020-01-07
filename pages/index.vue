@@ -68,10 +68,10 @@
       <div ref="galleryMask" class="home--gallery-mask">
         <div ref="galleryImage" class="home--gallery-holder">
           <picture
-            class="pictures"
             ref="galleryPictures"
             v-for="(project, index) in projects"
             :key="index"
+            class="pictures"
           >
             <source
               srcset="https://picsum.photos/2000/1500"
@@ -225,12 +225,17 @@ export default {
         '.home-marquee-middle-center'
       )[this.currentProject.index]
 
-      const { top, left } = divCenter.getBoundingClientRect()
+      const { top, left, height } = divCenter.getBoundingClientRect()
+      console.log(height)
       const pPrime = divCenter.cloneNode(true)
       pPrime.classList.add('frontOf')
+      console.log(divCenter.getBoundingClientRect())
       pPrime.style.left = left
       pPrime.style.top = top
-      document.querySelector('.home-marquee-middle').appendChild(pPrime)
+      pPrime.style.height = height
+      document.querySelector('.home').appendChild(pPrime)
+      const style = window.getComputedStyle(divCenter)
+      pPrime.style = style
 
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
@@ -272,19 +277,27 @@ export default {
       height: 32vh;
     }
 
-    &--row {
-      display: flex;
-      white-space: nowrap;
-      // height: 50vh;
-      width: 100%;
-      font-size: 248px;
-      position: relative;
-      width: 100%;
+    @at-root .frontOf,
+      &--row {
       font-family: 'Gandur', 'Source Sans Pro';
+      font-size: 248px;
       text-transform: uppercase;
       -webkit-text-stroke: 1px #ffffff;
       color: transparent;
+      white-space: nowrap;
       margin-bottom: 100px;
+      display: block;
+
+      @include respond-to(xxl) {
+        font-size: 380px;
+      }
+    }
+
+    &--row {
+      position: relative;
+      display: flex;
+      width: 100%;
+      // height: 50vh;
 
       @include respond-to(xxl) {
         font-size: 380px;
@@ -370,11 +383,12 @@ export default {
           }
         }
         &.frontOf {
+          display: block;
           margin: 0;
           pointer-events: none;
           position: absolute;
           z-index: 9999999;
-          height: 100%;
+          transform: rotate(-5deg);
         }
       }
     }
@@ -429,6 +443,7 @@ export default {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    // background: red;
 
     &.active {
       opacity: 1;
@@ -453,8 +468,8 @@ export default {
       height: 100vh;
       position: absolute;
       top: -25%;
-      left: 0;
-      opacity: 0.9;
+      // left: -25%;
+      // opacity: 0.9;
 
       picture {
         opacity: 0;
