@@ -224,18 +224,11 @@ export default {
       const divCenter = document.querySelectorAll(
         '.home-marquee-middle-center'
       )[this.currentProject.index]
-
-      const { top, left, height } = divCenter.getBoundingClientRect()
-      console.log(height)
+      const { left, top } = divCenter.getBoundingClientRect()
       const pPrime = divCenter.cloneNode(true)
       pPrime.classList.add('frontOf')
-      console.log(divCenter.getBoundingClientRect())
-      pPrime.style.left = left
-      pPrime.style.top = top
-      pPrime.style.height = height
+      pPrime.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(-5deg)`
       document.querySelector('.home').appendChild(pPrime)
-      const style = window.getComputedStyle(divCenter)
-      pPrime.style = style
 
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
@@ -271,11 +264,8 @@ export default {
     transform: rotate(-5deg);
     overflow: hidden;
     width: 100%;
-    height: 20vh;
+    height: 100%;
     position: relative;
-    @include respond-to(xxl) {
-      height: 32vh;
-    }
 
     @at-root .frontOf,
       &--row {
@@ -384,11 +374,12 @@ export default {
         }
         &.frontOf {
           display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
           margin: 0;
           pointer-events: none;
-          position: absolute;
-          z-index: 9999999;
-          transform: rotate(-5deg);
+          z-index: 9999;
         }
       }
     }
