@@ -170,6 +170,7 @@ export default {
           [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
           {
             yPercent: `-=100`,
+            y: `-=100`,
             duration: 2,
             ease: 'Power4.easeInOut',
             onComplete: () => {
@@ -183,6 +184,11 @@ export default {
                 ],
                 {
                   yPercent:
+                    100 * (this.projects.length - 1) +
+                    (this.previousProject.index !== 0
+                      ? -(this.previousProject.index * 100)
+                      : 0),
+                  y:
                     100 * (this.projects.length - 1) +
                     (this.previousProject.index !== 0
                       ? -(this.previousProject.index * 100)
@@ -260,13 +266,16 @@ export default {
     transform: rotate(-5deg);
     overflow: hidden;
     width: 100%;
-    height: 35vh;
+    height: 20vh;
     position: relative;
+    @include respond-to(xxl) {
+      height: 32vh;
+    }
 
     &--row {
       display: flex;
       white-space: nowrap;
-      height: 50vh;
+      // height: 50vh;
       width: 100%;
       font-size: 248px;
       position: relative;
@@ -275,8 +284,14 @@ export default {
       text-transform: uppercase;
       -webkit-text-stroke: 1px #ffffff;
       color: transparent;
+      margin-bottom: 100px;
+
       @include respond-to(xxl) {
-        font-size: 280px;
+        font-size: 380px;
+      }
+
+      span {
+        display: block;
       }
 
       span::after {
@@ -328,7 +343,7 @@ export default {
           font-size: 12px;
           position: absolute;
           transform: rotate(-90deg);
-          top: 30%;
+          top: 50%;
         }
         .middle--left {
           left: calc(-50px - 25px);
