@@ -18,25 +18,21 @@
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
+          {{
           project.title
-        }}</span>
+          }}
+        </span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{ project.type }}</span>
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-            >{{ project.title }}</span
-          >
+          >{{ project.title }}</span>
           <span class="middle--right">{{ project.type }}</span>
         </div>
-        <span
-          v-for="i in 3"
-          :key="'yu' + i"
-          class="home-marquee-middle-right"
-          >{{ project.title }}</span
-        >
+        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
@@ -56,8 +52,7 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-          >0{{ index + 1 }}</span
-        >
+        >0{{ index + 1 }}</span>
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -73,15 +68,13 @@
             :key="index"
             class="pictures"
           >
-            <source
-              srcset="https://picsum.photos/2000/1500"
-              media="(min-width: 600px)"
-            />
+            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
       </div>
     </div>
+    <div class="elements-cloned"></div>
   </div>
 </template>
 
@@ -221,14 +214,14 @@ export default {
       })
     },
     handleProjectHover(e) {
-      const divCenter = document.querySelectorAll(
+      const divToClone = document.querySelectorAll(
         '.home-marquee-middle-center'
       )[this.currentProject.index]
-      const { left, top } = divCenter.getBoundingClientRect()
-      const pPrime = divCenter.cloneNode(true)
-      pPrime.classList.add('frontOf')
-      pPrime.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(-5deg)`
-      document.querySelector('.home').appendChild(pPrime)
+      const { left, top } = divToClone.getBoundingClientRect()
+      const divCloned = divToClone.cloneNode(true)
+      divCloned.classList.add('divFrontOf')
+      divCloned.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(-5deg)`
+      document.querySelector('.elements-cloned').appendChild(divCloned)
 
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
@@ -238,6 +231,8 @@ export default {
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
+      document.querySelector('.divFrontOf').remove()
+
       this.$refs.galleryPictures[this.currentProject.index].classList.remove(
         'active'
       )
@@ -267,7 +262,7 @@ export default {
     height: 100%;
     position: relative;
 
-    @at-root .frontOf,
+    @at-root .elements-cloned .divFrontOf,
       &--row {
       font-family: 'Gandur', 'Source Sans Pro';
       font-size: 248px;
@@ -275,19 +270,14 @@ export default {
       -webkit-text-stroke: 1px #ffffff;
       color: transparent;
       white-space: nowrap;
-      margin-bottom: 100px;
-      display: block;
-
-      @include respond-to(xxl) {
-        font-size: 380px;
-      }
     }
 
     &--row {
       position: relative;
       display: flex;
       width: 100%;
-      // height: 50vh;
+
+      margin-bottom: 100px;
 
       @include respond-to(xxl) {
         font-size: 380px;
@@ -371,15 +361,6 @@ export default {
             overflow: hidden;
             transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
           }
-        }
-        &.frontOf {
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          margin: 0;
-          pointer-events: none;
-          z-index: 9999;
         }
       }
     }
@@ -480,6 +461,17 @@ export default {
         }
       }
     }
+  }
+}
+
+.elements-cloned {
+  .divFrontOf {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    transform-origin: 100% 0%;
+    pointer-events: none;
   }
 }
 
