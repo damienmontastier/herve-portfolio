@@ -220,7 +220,8 @@ export default {
       const { left, top } = divToClone.getBoundingClientRect()
       const divCloned = divToClone.cloneNode(true)
       divCloned.classList.add('divFrontOf')
-      divCloned.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(-5deg)`
+      divCloned.style.transform = `translate3d(${left}px, ${top}px, 0)`
+      // divCloned.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(-5deg)`
       document.querySelector('.elements-cloned').appendChild(divCloned)
 
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
@@ -256,7 +257,7 @@ export default {
   align-items: center;
 
   &-marquee {
-    transform: rotate(-5deg);
+    // transform: rotate(-5deg);
     overflow: hidden;
     width: 100%;
     height: 100%;
