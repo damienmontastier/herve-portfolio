@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import Emitter from '~/assets/js/events'
+import Emitter from '~/assets/js/Events'
 
 class Cursor {
   constructor() {

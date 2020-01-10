@@ -27,7 +27,7 @@
 
 <script>
 import gsap from 'gsap'
-import Emitter from '~/assets/js/events'
+import Emitter from '~/assets/js/Events'
 
 export default {
   data() {

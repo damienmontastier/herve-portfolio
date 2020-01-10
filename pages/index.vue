@@ -19,9 +19,7 @@
         class="home-marquee--row home-marquee-middle"
       >
         <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
-          {{
-          project.title
-          }}
+          {{ project.title }}
         </span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{ project.type }}</span>
@@ -29,10 +27,16 @@
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-          >{{ project.title }}</span>
+            >{{ project.title }}</span
+          >
           <span class="middle--right">{{ project.type }}</span>
         </div>
-        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
+        <span
+          v-for="i in 3"
+          :key="'yu' + i"
+          class="home-marquee-middle-right"
+          >{{ project.title }}</span
+        >
       </div>
     </div>
     <div class="home-marquee">
@@ -52,7 +56,8 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-        >0{{ index + 1 }}</span>
+          >0{{ index + 1 }}</span
+        >
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -68,7 +73,10 @@
             :key="index"
             class="pictures"
           >
-            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+            <source
+              srcset="https://picsum.photos/2000/1500"
+              media="(min-width: 600px)"
+            />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
@@ -81,7 +89,8 @@
 <script>
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
-import Emitter from '~/assets/js/events'
+import Emitter from '~/assets/js/Events'
+// import nulifyTransforms from '~/assets/js/nulifyTransforms'
 
 export default {
   data() {
@@ -214,14 +223,21 @@ export default {
       })
     },
     handleProjectHover(e) {
-      const divToClone = document.querySelectorAll(
-        '.home-marquee-middle-center'
-      )[this.currentProject.index]
-      const { left, top } = divToClone.getBoundingClientRect()
-      const divCloned = divToClone.cloneNode(true)
-      divCloned.classList.add('divFrontOf')
-      divCloned.style.transform = `translate3d(${left}px, ${top}px, 0) rotate(-5deg)`
-      document.querySelector('.elements-cloned').appendChild(divCloned)
+      // const projectNameDiv = document.querySelectorAll(
+      //   '.home-marquee-middle-center'
+      // )[this.currentProject.index]
+
+      // const centerRow = document.querySelectorAll('.home-marquee')[1]
+      // const centerRowPositionNulify = nulifyTransforms(centerRow)
+
+      // const { left } = projectNameDiv.getBoundingClientRect()
+
+      // const projectNameDivCloned = projectNameDiv.cloneNode(true)
+      // projectNameDivCloned.classList.add('divFrontOf')
+      // projectNameDivCloned.style.transform = `translate3d(${left}px, ${centerRowPositionNulify.top}px, 0) rotate(-5deg)`
+      // document
+      //   .querySelector('.elements-cloned')
+      //   .appendChild(projectNameDivCloned)
 
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
@@ -231,7 +247,7 @@ export default {
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
-      document.querySelector('.divFrontOf').remove()
+      // document.querySelector('.divFrontOf').remove()
 
       this.$refs.galleryPictures[this.currentProject.index].classList.remove(
         'active'
@@ -256,7 +272,7 @@ export default {
   align-items: center;
 
   &-marquee {
-    transform: rotate(-5deg);
+    // transform: rotate(-5deg);
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -470,7 +486,7 @@ export default {
     top: 0;
     left: 0;
     margin: 0;
-    transform-origin: 100% 0%;
+    // transform-origin: 100% 100%;
     pointer-events: none;
   }
 }
