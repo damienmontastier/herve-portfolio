@@ -7,8 +7,8 @@
         :key="index"
         class="home-marquee--row left"
       >
-        <span v-for="i in 5" :key="'yo' + i">{{ project.title }}</span>
-        <span v-for="i in 5" :key="'ya' + i">{{ project.title }}</span>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
     </div>
     <div style class="home-marquee">
@@ -19,14 +19,12 @@
         class="home-marquee--row home-marquee-middle"
       >
         <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{ project.title }}</span>
-        <div class="home-marquee-middle-center">
-          <span class="middle--left">{{ project.type }}</span>
+        <div :data-type="project.type" class="home-marquee-middle-center">
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
           >{{ project.title }}</span>
-          <span class="middle--right">{{ project.type }}</span>
         </div>
         <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
@@ -38,8 +36,8 @@
         :key="index"
         class="home-marquee--row right"
       >
-        <span v-for="i in 5" :key="'yr' + i">{{ project.title }}</span>
-        <span v-for="i in 5" :key="'yn' + i">{{ project.title }}</span>
+        <div class="row--inner" v-for="i in 5" :key="'yr' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yn' + i">{{ project.title }}</div>
       </div>
     </div>
     <div class="home-pagination">
@@ -105,7 +103,7 @@ export default {
 
     this.projectNameToCloneBouding = this.projectNameToClone.getBoundingClientRect()
 
-    // document.querySelectorAll('.home-marquee')[1].classList.add('rotate')
+    document.querySelectorAll('.home-marquee')[1].classList.add('rotate')
 
     // this.$cursor.add()
     this.handleEvents()
@@ -234,7 +232,7 @@ export default {
 
       const projectNameDivCloned = this.projectNameToClone.cloneNode(true)
       projectNameDivCloned.classList.add('divFrontOf')
-      projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0)`
+      projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0) rotate(-5deg)`
       document
         .querySelector('.elements-cloned')
         .appendChild(projectNameDivCloned)
@@ -247,7 +245,7 @@ export default {
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
-      // document.querySelector('.divFrontOf').remove()
+      document.querySelector('.divFrontOf').remove()
 
       this.$refs.galleryPictures[this.currentProject.index].classList.remove(
         'active'
@@ -280,12 +278,12 @@ export default {
       transform: rotate(-5deg);
     }
 
-    // &:nth-child(1),
-    // &:nth-child(3) {
-    //   transform: rotate(-5deg);
-    // }
+    &:nth-child(1),
+    &:nth-child(3) {
+      transform: rotate(-5deg);
+    }
 
-    @at-root .elements-cloned .divFrontOf,
+    @at-root .divFrontOf,
       &--row {
       font-family: 'Gandur', 'Source Sans Pro';
       font-size: 248px;
@@ -299,25 +297,20 @@ export default {
       position: relative;
       display: flex;
       width: 100%;
-      height: 100%;
       margin-bottom: 100px;
 
       @include respond-to(xxl) {
         font-size: 380px;
       }
 
-      span {
-        display: block;
-      }
-
-      span::after {
+      .row--inner::after {
         content: '\00a0';
       }
 
-      &.left span {
+      &.left .row--inner {
         animation: 30s marqueeAnimation infinite linear;
       }
-      &.right span {
+      &.right .row--inner {
         animation: 30s marqueeAnimation infinite linear reverse;
       }
     }
@@ -326,15 +319,12 @@ export default {
       display: flex;
       justify-content: center;
 
-      span {
-        flex-shrink: 0;
-        overflow: hidden;
+      &-left,
+      &-right {
+        display: block;
       }
 
       &-left {
-        &::after {
-          content: '' !important;
-        }
         &::before {
           content: '\00a0';
         }
@@ -344,52 +334,34 @@ export default {
         &::after {
           content: '\00a0';
         }
-        &::before {
-          content: '' !important;
-        }
       }
 
       &-center {
         position: relative;
         margin: 0 60px;
 
-        span::after {
-          content: '' !important;
-        }
-
-        .middle--left,
-        .middle--right {
+        &::after,
+        &::before {
+          content: attr(data-type);
+          position: absolute;
+          display: block;
+          top: 50%;
+          color: white;
           font-family: 'Manrope';
           font-weight: 200;
           font-size: 12px;
-          position: absolute;
-          transform: rotate(-90deg);
-          top: 50%;
-          display: block;
+          transform: translateY(-50%) rotate(-90deg);
         }
-        .middle--left {
-          left: calc(-50px - 25px);
+
+        &::before {
+          left: calc(-50% + 65px);
         }
-        .middle--right {
-          right: calc(-50px - 25px);
+        &::after {
+          right: calc(-50% + 65px);
         }
+
         .middle--center {
-          &.active {
-            &::before {
-              height: 0%;
-            }
-          }
-          &::before {
-            content: attr(data-name);
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            color: white;
-            overflow: hidden;
-            transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
-          }
+          display: block;
         }
       }
     }
@@ -469,7 +441,6 @@ export default {
       height: 100vh;
       position: absolute;
       top: -25%;
-      // left: -25%;
       // opacity: 0.9;
 
       picture {
@@ -492,7 +463,14 @@ export default {
     }
   }
 }
-
+.divFrontOf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  // transform-origin: 100% 100%;
+  pointer-events: none;
+}
 .elements-cloned {
   .divFrontOf {
     position: absolute;
