@@ -1,14 +1,15 @@
 <template>
-  <nav class="nav-menu">
-    <ul class="nav-menu-row">
-      <li class="cursor-js">
-        <nuxt-link class="nav-menu--link" data-value="About" to="/about">About</nuxt-link>
-      </li>
-      <li class="cursor-js">
-        <a class="nav-menu--link" data-value="Works">Works</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="home-marquee">
+    <div
+      ref="firstRow"
+      v-for="(project, index) in projects"
+      :key="index"
+      class="home-marquee--row left"
+    >
+      <span v-for="i in 5" :key="'yo' + i">{{ project.title }}</span>
+      <span v-for="i in 5" :key="'ya' + i">{{ project.title }}</span>
+    </div>
+  </div>
 </template>
 
 <script>

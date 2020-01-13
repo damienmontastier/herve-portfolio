@@ -18,25 +18,17 @@
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
-          {{ project.title }}
-        </span>
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{ project.title }}</span>
         <div class="home-marquee-middle-center">
           <span class="middle--left">{{ project.type }}</span>
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-            >{{ project.title }}</span
-          >
+          >{{ project.title }}</span>
           <span class="middle--right">{{ project.type }}</span>
         </div>
-        <span
-          v-for="i in 3"
-          :key="'yu' + i"
-          class="home-marquee-middle-right"
-          >{{ project.title }}</span
-        >
+        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
@@ -56,8 +48,7 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-          >0{{ index + 1 }}</span
-        >
+        >0{{ index + 1 }}</span>
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -73,10 +64,7 @@
             :key="index"
             class="pictures"
           >
-            <source
-              srcset="https://picsum.photos/2000/1500"
-              media="(min-width: 600px)"
-            />
+            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
@@ -95,7 +83,9 @@ import Emitter from '~/assets/js/Events'
 export default {
   data() {
     return {
-      sliderInProgress: false
+      sliderInProgress: false,
+      projectNameToClone: null,
+      projectNameToCloneBouding: null
     }
   },
   computed: {
@@ -107,7 +97,16 @@ export default {
       indexProject: state => state.indexProject
     })
   },
+  beforeMount() {},
   mounted() {
+    this.projectNameToClone = document.querySelectorAll(
+      '.home-marquee-middle-center'
+    )[this.currentProject.index]
+
+    this.projectNameToCloneBouding = this.projectNameToClone.getBoundingClientRect()
+
+    // document.querySelectorAll('.home-marquee')[1].classList.add('rotate')
+
     // this.$cursor.add()
     this.handleEvents()
   },
@@ -209,15 +208,15 @@ export default {
       const { width, height } = this.$refs.gallery.getBoundingClientRect()
 
       gsap.to(this.$refs.gallery, {
-        x: (e.clientX - window.innerWidth / 2) * 0.5,
-        y: (e.clientY - window.innerHeight / 2) * 0.5,
+        x: (e.clientX - window.innerWidth / 2) * 0.6,
+        y: (e.clientY - window.innerHeight / 2) * 0.6,
         duration: 0.5,
         ease: 'power1.out'
       })
 
       gsap.to(this.$refs.galleryImage, {
-        x: (e.offsetX - width / 2) * 0.65,
-        y: (e.offsetY - height / 2) * 0.65,
+        x: (e.offsetX - width / 2) * 0.7,
+        y: (e.offsetY - height / 2) * 0.7,
         duration: 0.5,
         ease: 'power1.out'
       })
@@ -231,13 +230,14 @@ export default {
       // const centerRowPositionNulify = nulifyTransforms(centerRow)
 
       // const { left } = projectNameDiv.getBoundingClientRect()
+      console.log(this.projectNameToClone)
 
-      // const projectNameDivCloned = projectNameDiv.cloneNode(true)
-      // projectNameDivCloned.classList.add('divFrontOf')
-      // projectNameDivCloned.style.transform = `translate3d(${left}px, ${centerRowPositionNulify.top}px, 0) rotate(-5deg)`
-      // document
-      //   .querySelector('.elements-cloned')
-      //   .appendChild(projectNameDivCloned)
+      const projectNameDivCloned = this.projectNameToClone.cloneNode(true)
+      projectNameDivCloned.classList.add('divFrontOf')
+      projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0)`
+      document
+        .querySelector('.elements-cloned')
+        .appendChild(projectNameDivCloned)
 
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
@@ -261,8 +261,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import './';
-
 .home {
   min-height: 100vh;
   height: 100vh;
@@ -278,6 +276,15 @@ export default {
     height: 100%;
     position: relative;
 
+    &.rotate {
+      transform: rotate(-5deg);
+    }
+
+    // &:nth-child(1),
+    // &:nth-child(3) {
+    //   transform: rotate(-5deg);
+    // }
+
     @at-root .elements-cloned .divFrontOf,
       &--row {
       font-family: 'Gandur', 'Source Sans Pro';
@@ -292,7 +299,7 @@ export default {
       position: relative;
       display: flex;
       width: 100%;
-
+      height: 100%;
       margin-bottom: 100px;
 
       @include respond-to(xxl) {
@@ -318,6 +325,11 @@ export default {
     &-middle {
       display: flex;
       justify-content: center;
+
+      span {
+        flex-shrink: 0;
+        overflow: hidden;
+      }
 
       &-left {
         &::after {
@@ -353,6 +365,7 @@ export default {
           position: absolute;
           transform: rotate(-90deg);
           top: 50%;
+          display: block;
         }
         .middle--left {
           left: calc(-50px - 25px);
