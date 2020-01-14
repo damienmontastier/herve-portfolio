@@ -5,9 +5,7 @@
 </template>
 
 <script>
-// import gsap from 'gsap'
 import { mapState } from 'vuex'
-// import Emitter from '~/assets/js/Events'
 
 export default {
   data() {

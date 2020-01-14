@@ -72,7 +72,6 @@
         </div>
       </div>
     </div>
-    <div class="elements-cloned"></div>
   </div>
 </template>
 
@@ -80,7 +79,6 @@
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
 import Emitter from '~/assets/js/Events'
-// import nulifyTransforms from '~/assets/js/nulifyTransforms'
 
 export default {
   data() {
@@ -225,8 +223,6 @@ export default {
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
-      // document.querySelector('.divFrontOf').remove()
-
       this.$refs.galleryPictures[this.currentProject.index].classList.remove(
         'active'
       )
@@ -249,7 +245,6 @@ export default {
 
   &-marquee {
     transform: rotate(-5deg);
-    transform-origin: 0 0 0;
     overflow: hidden;
     width: 100%;
     height: 100%;
