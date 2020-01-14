@@ -220,16 +220,6 @@ export default {
       })
     },
     handleProjectHover(e) {
-      // const projectNameDiv = document.querySelectorAll(
-      //   '.home-marquee-middle-center'
-      // )[this.currentProject.index]
-
-      // const centerRow = document.querySelectorAll('.home-marquee')[1]
-      // const centerRowPositionNulify = nulifyTransforms(centerRow)
-
-      // const { left } = projectNameDiv.getBoundingClientRect()
-      console.log(this.projectNameToClone)
-
       const projectNameDivCloned = this.projectNameToClone.cloneNode(true)
       projectNameDivCloned.classList.add('divFrontOf')
       projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0) rotate(-5deg)`
@@ -354,10 +344,10 @@ export default {
         }
 
         &::before {
-          left: calc(-50% + 65px);
+          left: -65px;
         }
         &::after {
-          right: calc(-50% + 65px);
+          right: -65px;
         }
 
         .middle--center {
