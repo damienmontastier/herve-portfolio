@@ -7,8 +7,12 @@
         :key="index"
         class="home-marquee--row left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
+          {{ project.title }}
+        </div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
+          {{ project.title }}
+        </div>
       </div>
     </div>
     <div style class="home-marquee">
@@ -18,15 +22,23 @@
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{ project.title }}</span>
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{
+          project.title
+        }}</span>
         <div :data-type="project.type" class="home-marquee-middle-center">
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-          >{{ project.title }}</span>
+            >{{ project.title }}</span
+          >
         </div>
-        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
+        <span
+          v-for="i in 3"
+          :key="'yu' + i"
+          class="home-marquee-middle-right"
+          >{{ project.title }}</span
+        >
       </div>
     </div>
     <div class="home-marquee">
@@ -36,8 +48,12 @@
         :key="index"
         class="home-marquee--row right"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yr' + i">{{ project.title }}</div>
-        <div class="row--inner" v-for="i in 5" :key="'yn' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yr' + i">
+          {{ project.title }}
+        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yn' + i">
+          {{ project.title }}
+        </div>
       </div>
     </div>
     <div class="home-pagination">
@@ -46,7 +62,8 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-        >0{{ index + 1 }}</span>
+          >0{{ index + 1 }}</span
+        >
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -62,7 +79,10 @@
             :key="index"
             class="pictures"
           >
-            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+            <source
+              srcset="https://picsum.photos/2000/1500"
+              media="(min-width: 600px)"
+            />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
@@ -199,6 +219,7 @@ export default {
         )
       }
     },
+
     handleProjectSelected() {
       console.log('click')
     },
@@ -222,7 +243,7 @@ export default {
     handleProjectHover(e) {
       const projectNameDivCloned = this.projectNameToClone.cloneNode(true)
       projectNameDivCloned.classList.add('divFrontOf')
-      projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0) rotate(-5deg)`
+      projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0 ) rotate(-5deg)`
       document
         .querySelector('.elements-cloned')
         .appendChild(projectNameDivCloned)
@@ -235,7 +256,7 @@ export default {
       Emitter.emit('cursorTransform', true)
     },
     handleProjectLeave(e) {
-      document.querySelector('.divFrontOf').remove()
+      // document.querySelector('.divFrontOf').remove()
 
       this.$refs.galleryPictures[this.currentProject.index].classList.remove(
         'active'
@@ -258,20 +279,23 @@ export default {
   align-items: center;
 
   &-marquee {
-    // transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    transform-origin: 0 0 0;
     overflow: hidden;
     width: 100%;
     height: 100%;
     position: relative;
 
-    &.rotate {
-      transform: rotate(-5deg);
-    }
+    // &.rotate {
+    //   transform: rotate(-10deg);
+    //   transform-origin: 0 0 0;
+    // }
 
-    &:nth-child(1),
-    &:nth-child(3) {
-      transform: rotate(-5deg);
-    }
+    // &:nth-child(1),
+    // &:nth-child(3) {
+    //   transform: rotate(-10deg);
+    //   transform-origin: 0 0 0;
+    // }
 
     @at-root .divFrontOf,
       &--row {
@@ -458,18 +482,13 @@ export default {
   top: 0;
   left: 0;
   margin: 0;
-  // transform-origin: 100% 100%;
   pointer-events: none;
 }
 .elements-cloned {
-  .divFrontOf {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    // transform-origin: 100% 100%;
-    pointer-events: none;
-  }
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
 }
 
 @keyframes marqueeAnimation {
