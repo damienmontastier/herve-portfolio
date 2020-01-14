@@ -79,7 +79,7 @@
 <script>
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
-import Emitter from '~/assets/js/Events'
+import Emitter from '@/assets/js/Events'
 // import nulifyTransforms from '~/assets/js/nulifyTransforms'
 
 export default {
