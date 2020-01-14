@@ -17,7 +17,7 @@
 
 export default {
   mounted() {
-    Cursor.add()
+    // Cursor.add()
   }
 }
 </script>
