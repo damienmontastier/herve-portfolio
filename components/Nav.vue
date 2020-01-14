@@ -12,7 +12,7 @@
 </template>
 
 <script>
-// import Cursor from '@/assets/js/Cursor'
+import Cursor from '@/assets/js/Cursor'
 
 export default {
   mounted() {
