@@ -409,7 +409,6 @@ export default {
     opacity: 0;
     visibility: hidden;
     mix-blend-mode: lighten;
-
     pointer-events: none;
 
     &.active {
