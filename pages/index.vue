@@ -7,12 +7,8 @@
         :key="index"
         class="home-marquee--row left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
     </div>
     <div style class="home-marquee">
@@ -22,23 +18,19 @@
         :key="index"
         class="home-marquee--row home-marquee-middle"
       >
-        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
+          {{
           project.title
-        }}</span>
+          }}
+        </span>
         <div :data-type="project.type" class="home-marquee-middle-center">
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-            >{{ project.title }}</span
-          >
+          >{{ project.title }}</span>
         </div>
-        <span
-          v-for="i in 3"
-          :key="'yu' + i"
-          class="home-marquee-middle-right"
-          >{{ project.title }}</span
-        >
+        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
@@ -48,12 +40,8 @@
         :key="index"
         class="home-marquee--row right"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yr' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'yn' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yr' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yn' + i">{{ project.title }}</div>
       </div>
     </div>
     <div class="home-pagination">
@@ -62,8 +50,7 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-          >0{{ index + 1 }}</span
-        >
+        >0{{ index + 1 }}</span>
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -79,10 +66,7 @@
             :key="index"
             class="pictures"
           >
-            <source
-              srcset="https://picsum.photos/2000/1500"
-              media="(min-width: 600px)"
-            />
+            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
@@ -117,14 +101,6 @@ export default {
   },
   beforeMount() {},
   mounted() {
-    this.projectNameToClone = document.querySelectorAll(
-      '.home-marquee-middle-center'
-    )[this.currentProject.index]
-
-    this.projectNameToCloneBouding = this.projectNameToClone.getBoundingClientRect()
-
-    document.querySelectorAll('.home-marquee')[1].classList.add('rotate')
-
     // this.$cursor.add()
     this.handleEvents()
   },
@@ -241,13 +217,6 @@ export default {
       })
     },
     handleProjectHover(e) {
-      const projectNameDivCloned = this.projectNameToClone.cloneNode(true)
-      projectNameDivCloned.classList.add('divFrontOf')
-      projectNameDivCloned.style.transform = `translate3d(${this.projectNameToCloneBouding.left}px, ${this.projectNameToCloneBouding.top}px, 0 ) rotate(-5deg)`
-      document
-        .querySelector('.elements-cloned')
-        .appendChild(projectNameDivCloned)
-
       this.$refs.galleryPictures[this.currentProject.index].classList.add(
         'active'
       )
@@ -286,16 +255,9 @@ export default {
     height: 100%;
     position: relative;
 
-    // &.rotate {
-    //   transform: rotate(-10deg);
-    //   transform-origin: 0 0 0;
-    // }
-
-    // &:nth-child(1),
-    // &:nth-child(3) {
-    //   transform: rotate(-10deg);
-    //   transform-origin: 0 0 0;
-    // }
+    &:nth-child(2) {
+      z-index: 999999;
+    }
 
     @at-root .divFrontOf,
       &--row {
@@ -376,6 +338,23 @@ export default {
 
         .middle--center {
           display: block;
+          position: relative;
+          &.active {
+            &::after {
+              height: 100%;
+            }
+          }
+          &::after {
+            content: attr(data-name);
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0%;
+            color: white;
+            overflow: hidden;
+            transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
+          }
         }
       }
     }
@@ -429,8 +408,9 @@ export default {
     height: 485px;
     opacity: 0;
     visibility: hidden;
+    mix-blend-mode: lighten;
+
     pointer-events: none;
-    // background: red;
 
     &.active {
       opacity: 1;
