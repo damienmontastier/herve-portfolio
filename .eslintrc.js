@@ -20,7 +20,7 @@ module.exports = {
         asyncArrow: 'always'
       }
     ],
-    'arrow-parens': ['error', 'as-needed'],
-    'no-unexpected-multiline': ['error', 'no-spaced-func']
+    'arrow-parens': ['error', 'as-needed']
+    // 'no-unexpected-multiline': ['error', 'no-spaced-func']
   }
 }
