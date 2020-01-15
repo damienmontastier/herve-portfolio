@@ -7,8 +7,12 @@
         :key="index"
         class="home-marquee--row left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
+          {{ project.title }}
+        </div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
+          {{ project.title }}
+        </div>
       </div>
     </div>
     <div style class="home-marquee">
@@ -19,18 +23,22 @@
         class="home-marquee--row home-marquee-middle"
       >
         <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
-          {{
-          project.title
-          }}
+          {{ project.title }}
         </span>
         <div :data-type="project.type" class="home-marquee-middle-center">
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-          >{{ project.title }}</span>
+            >{{ project.title }}</span
+          >
         </div>
-        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
+        <span
+          v-for="i in 3"
+          :key="'yu' + i"
+          class="home-marquee-middle-right"
+          >{{ project.title }}</span
+        >
       </div>
     </div>
     <div class="home-marquee">
@@ -40,8 +48,12 @@
         :key="index"
         class="home-marquee--row right"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yr' + i">{{ project.title }}</div>
-        <div class="row--inner" v-for="i in 5" :key="'yn' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yr' + i">
+          {{ project.title }}
+        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yn' + i">
+          {{ project.title }}
+        </div>
       </div>
     </div>
     <div class="home-pagination">
@@ -50,7 +62,8 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-        >0{{ index + 1 }}</span>
+          >0{{ index + 1 }}</span
+        >
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -66,7 +79,10 @@
             :key="index"
             class="pictures"
           >
-            <source srcset="https://picsum.photos/2000/1500" media="(min-width: 600px)" />
+            <source
+              srcset="https://picsum.photos/2000/1500"
+              media="(min-width: 600px)"
+            />
             <img src="https://picsum.photos/2000/1500" alt />
           </picture>
         </div>
@@ -163,7 +179,7 @@ export default {
           [this.$refs.firstRow, this.$refs.secondRow, this.$refs.thirdRow],
           {
             yPercent: `-=100`,
-            y: `-=100`,
+            y: `-=200`,
             duration: 2,
             ease: 'Power4.easeInOut',
             onComplete: () => {
@@ -182,9 +198,9 @@ export default {
                       ? -(this.previousProject.index * 100)
                       : 0),
                   y:
-                    100 * (this.projects.length - 1) +
+                    200 * (this.projects.length - 1) +
                     (this.previousProject.index !== 0
-                      ? -(this.previousProject.index * 100)
+                      ? -(this.previousProject.index * 200)
                       : 0)
                 }
               )
@@ -268,7 +284,7 @@ export default {
       position: relative;
       display: flex;
       width: 100%;
-      margin-bottom: 100px;
+      margin-bottom: 200px;
 
       @include respond-to(xxl) {
         font-size: 380px;
@@ -334,9 +350,10 @@ export default {
         .middle--center {
           display: block;
           position: relative;
+
           &.active {
             &::after {
-              height: 100%;
+              height: 0%;
             }
           }
           &::after {
@@ -345,7 +362,7 @@ export default {
             position: absolute;
             top: 0;
             left: 0;
-            height: 0%;
+            height: 100%;
             color: white;
             overflow: hidden;
             transition: height 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
@@ -403,7 +420,7 @@ export default {
     height: 485px;
     opacity: 0;
     visibility: hidden;
-    mix-blend-mode: lighten;
+    mix-blend-mode: screen;
     pointer-events: none;
 
     &.active {
