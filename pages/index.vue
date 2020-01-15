@@ -5,40 +5,30 @@
         ref="firstRow"
         v-for="(project, index) in projects"
         :key="index"
-        class="home-marquee--row left"
+        class="home-marquee--row marquee-title left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
     </div>
-    <div style class="home-marquee">
+    <!-- <Marquee ref="firstRow" :dynamic="true"></Marquee> -->
+
+    <div class="home-marquee">
       <div
         ref="secondRow"
         v-for="(project, index) in projects"
         :key="index"
-        class="home-marquee--row home-marquee-middle"
+        class="home-marquee--row home-marquee-middle marquee-title"
       >
-        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
-          {{ project.title }}
-        </span>
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{ project.title }}</span>
         <div :data-type="project.type" class="home-marquee-middle-center">
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-            >{{ project.title }}</span
-          >
+          >{{ project.title }}</span>
         </div>
-        <span
-          v-for="i in 3"
-          :key="'yu' + i"
-          class="home-marquee-middle-right"
-          >{{ project.title }}</span
-        >
+        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
@@ -46,24 +36,21 @@
         ref="thirdRow"
         v-for="(project, index) in projects"
         :key="index"
-        class="home-marquee--row right"
+        class="home-marquee--row marquee-title right"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yr' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'yn' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yr' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yn' + i">{{ project.title }}</div>
       </div>
     </div>
+    <!-- <Marquee ref="thirdRow" :dynamic="true"></Marquee> -->
+
     <div class="home-pagination">
       <div class="home-pagination--current">
         <span
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-          >0{{ index + 1 }}</span
-        >
+        >0{{ index + 1 }}</span>
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -92,8 +79,12 @@
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
 import Emitter from '~/assets/js/Events'
+// import Marquee from '~/components/Marquee'
 
 export default {
+  components: {
+    // Marquee
+  },
   data() {
     return {
       sliderInProgress: false,
@@ -256,6 +247,14 @@ export default {
   justify-content: center;
   align-items: center;
 
+  .marquee {
+    .home-marquee {
+      &--row {
+        margin-bottom: 200px;
+      }
+    }
+  }
+
   &-marquee {
     transform: rotate(-5deg);
     overflow: hidden;
@@ -272,12 +271,6 @@ export default {
       display: flex;
       width: 100%;
       margin-bottom: 200px;
-      font-family: 'Gandur', 'Source Sans Pro';
-      font-size: 248px;
-      text-transform: uppercase;
-      -webkit-text-stroke: 1px #ffffff;
-      color: transparent;
-      white-space: nowrap;
 
       @include respond-to(xxl) {
         font-size: 380px;
@@ -456,6 +449,7 @@ export default {
         img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
         }
       }
     }

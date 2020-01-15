@@ -2,6 +2,9 @@
   <nav class="nav-menu">
     <ul class="nav-menu-row">
       <li class="cursor-js">
+        <nuxt-link class="nav-menu--link" data-value="Home" to="/">Home</nuxt-link>
+      </li>
+      <li class="cursor-js">
         <nuxt-link class="nav-menu--link" data-value="About" to="/about">About</nuxt-link>
       </li>
       <li class="cursor-js">

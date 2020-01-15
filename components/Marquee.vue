@@ -1,10 +1,23 @@
+
+
 <template>
-  <div class="home-marquee">
-    <!-- <div :key="index" class="home-marquee--row left">
-      <div class="row--inner" v-for="i in 5" :key="'yo' + i">
-        {{ project.title }}
+  <div class="marquee">
+    <div v-if="dynamic" class="home-marquee">
+      <div
+        v-for="(project, index) in projects"
+        :key="index"
+        class="home-marquee--row marquee-title left"
+      >
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
-    </div> -->
+    </div>
+    <div v-else class="home-marquee">
+      <div class="home-marquee--row marquee-title left">
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{text}}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{text}}</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,6 +25,10 @@
 import { mapState } from 'vuex'
 
 export default {
+  props: {
+    dynamic: Boolean,
+    text: String
+  },
   mounted() {},
   computed: {
     ...mapState({
@@ -30,20 +47,12 @@ export default {
   transform: rotate(-5deg);
   overflow: hidden;
   width: 100%;
-  height: 100%;
   position: relative;
 
   &--row {
     position: relative;
     display: flex;
     width: 100%;
-    margin-bottom: 200px;
-    font-family: 'Gandur', 'Source Sans Pro';
-    font-size: 248px;
-    text-transform: uppercase;
-    -webkit-text-stroke: 1px #ffffff;
-    color: transparent;
-    white-space: nowrap;
 
     @include respond-to(xxl) {
       font-size: 380px;
@@ -59,6 +68,15 @@ export default {
     &.right .row--inner {
       animation: 30s marqueeAnimation infinite linear reverse;
     }
+  }
+}
+
+@keyframes marqueeAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
   }
 }
 </style>

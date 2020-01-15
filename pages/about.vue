@@ -1,6 +1,6 @@
 <template>
   <div ref="about" class="about">
-    <Marquee></Marquee>
+    <Marquee class="about-marquee" :dynamic="false" text="Let's connect"></Marquee>
     <div class="elements-cloned"></div>
   </div>
 </template>
@@ -39,5 +39,8 @@ export default {
 
 <style lang="scss" scoped>
 .about {
+  &-marquee {
+    margin-top: 150px;
+  }
 }
 </style>

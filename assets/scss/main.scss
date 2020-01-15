@@ -10,3 +10,16 @@ html {
   width: 100%;
   height: 100%;
 }
+
+.marquee-title {
+  font-family: 'Gandur', 'Source Sans Pro';
+  font-size: 248px;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px #ffffff;
+  color: transparent;
+  white-space: nowrap;
+
+  @include respond-to(xxl) {
+    font-size: 380px;
+  }
+}
