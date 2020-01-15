@@ -1,13 +1,18 @@
 <template>
   <div ref="about" class="about">
+    <Marquee></Marquee>
     <div class="elements-cloned"></div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import Marquee from '~/components/Marquee'
 
 export default {
+  components: {
+    Marquee
+  },
   data() {
     return {
       sliderInProgress: false
