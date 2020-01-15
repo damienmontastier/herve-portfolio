@@ -79,11 +79,8 @@
             :key="index"
             class="pictures"
           >
-            <source
-              srcset="https://picsum.photos/2000/1500"
-              media="(min-width: 600px)"
-            />
-            <img src="https://picsum.photos/2000/1500" alt />
+            <source :srcset="project.thumbnail" media="(min-width: 600px)" />
+            <img :src="project.thumbnail" :alt="`${project.title}-img`" />
           </picture>
         </div>
       </div>
@@ -270,21 +267,17 @@ export default {
       z-index: 999999;
     }
 
-    @at-root .divFrontOf,
-      &--row {
+    &--row {
+      position: relative;
+      display: flex;
+      width: 100%;
+      margin-bottom: 200px;
       font-family: 'Gandur', 'Source Sans Pro';
       font-size: 248px;
       text-transform: uppercase;
       -webkit-text-stroke: 1px #ffffff;
       color: transparent;
       white-space: nowrap;
-    }
-
-    &--row {
-      position: relative;
-      display: flex;
-      width: 100%;
-      margin-bottom: 200px;
 
       @include respond-to(xxl) {
         font-size: 380px;

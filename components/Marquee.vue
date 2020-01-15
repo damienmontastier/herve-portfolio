@@ -1,65 +1,63 @@
 <template>
   <div class="home-marquee">
-    <div
-      ref="firstRow"
-      v-for="(project, index) in projects"
-      :key="index"
-      class="home-marquee--row left"
-    >
-      <span v-for="i in 5" :key="'yo' + i">{{ project.title }}</span>
-      <span v-for="i in 5" :key="'ya' + i">{{ project.title }}</span>
-    </div>
+    <!-- <div :key="index" class="home-marquee--row left">
+      <div class="row--inner" v-for="i in 5" :key="'yo' + i">
+        {{ project.title }}
+      </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-// import Cursor from '@/assets/js/Cursor'
+import { mapState } from 'vuex'
 
 export default {
-  mounted() {
-    // Cursor.add()
+  mounted() {},
+  computed: {
+    ...mapState({
+      projects: state => state.projects,
+      currentProject: state => state.currentProject,
+      nextProject: state => state.nextProject,
+      previousProject: state => state.previousProject,
+      indexProject: state => state.indexProject
+    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.nav-menu {
-  position: fixed;
-  top: 30px;
-  left: 40px;
-  z-index: 999;
+.home-marquee {
+  transform: rotate(-5deg);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
 
-  ul {
-    display: inline-flex;
-    li {
-      font-size: 12px;
-      font-family: 'Manrope';
-      text-transform: uppercase;
-      overflow: hidden;
+  &--row {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-bottom: 200px;
+    font-family: 'Gandur', 'Source Sans Pro';
+    font-size: 248px;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px #ffffff;
+    color: transparent;
+    white-space: nowrap;
 
-      &:hover {
-        a {
-          transform: translateY(-100%);
-        }
-      }
+    @include respond-to(xxl) {
+      font-size: 380px;
+    }
 
-      &:first-child {
-        margin-right: 20px;
-      }
-      a {
-        text-decoration: none;
-        color: white;
-        position: relative;
-        display: block;
-        transition: transform 0.2s ease-out;
+    .row--inner::after {
+      content: '\00a0';
+    }
 
-        &:after {
-          content: attr(data-value);
-          position: absolute;
-          top: 100%;
-          left: 0;
-        }
-      }
+    &.left .row--inner {
+      animation: 30s marqueeAnimation infinite linear;
+    }
+    &.right .row--inner {
+      animation: 30s marqueeAnimation infinite linear reverse;
     }
   }
 }
