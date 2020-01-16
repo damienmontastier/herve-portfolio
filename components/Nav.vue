@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .nav-menu {
-  position: fixed;
+  position: absolute;
   top: 30px;
   left: 40px;
   z-index: 999;

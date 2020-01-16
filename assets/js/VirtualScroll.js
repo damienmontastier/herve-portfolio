@@ -1,49 +1,15 @@
+import VirtualScroll from 'virtual-scroll'
 import Emitter from '@/assets/js/Events'
 
-// if (typeof window !== 'undefined') {
-//   const VirtualScroll = require('virtual-scroll')
+if (process.client) {
+  const virtualScroll = new VirtualScroll({
+    useKeyboard: false
+  })
+}
 
-//   console.log('VirtualScroll')
+virtualScroll.on(e => {
+  if (virtualScroll.disabled) return
+  Emitter.emit('scroll', { event: e })
+})
 
-//   const scroll = new VirtualScroll({
-//     useKeyboard: false
-//   })
-
-//   scroll.on(e => {
-//     if (scroll.disabled) return
-
-//     Events.emit('scroll', {
-//       event: e
-//     })
-//   })
-// }
-// export default scroll
-
-// if (process.client) {
-//   export default class vScroll {
-//     constructor() {
-//       const VirtualScroll = require('virtual-scroll')
-
-//       this.vScroll = new VirtualScroll({
-//         useKeyboard: false
-//       })
-//     }
-//   }
-
-//   var s = new VirtualScroll()
-// }
-
-// export default s
-
-// class vScroll {
-//   constructor() {
-//     if (process.client) {
-//       this.virtualScroll = require('virtual-scroll')
-//       this.ready(() => {
-//         this.init()
-//       })
-//     }
-//   }
-// }
-
-// export default new vScroll()
+export default virtualScroll

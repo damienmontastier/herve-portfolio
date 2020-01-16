@@ -7,12 +7,8 @@
         :key="index"
         class="home-marquee--row marquee-title stroke left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
     </div>
     <!-- <Marquee ref="firstRow" :dynamic="true"></Marquee> -->
@@ -24,23 +20,19 @@
         :key="index"
         class="home-marquee--row home-marquee-middle marquee-title stroke"
       >
-        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">{{
+        <span v-for="i in 3" :key="'ye' + i" class="home-marquee-middle-left">
+          {{
           project.title
-        }}</span>
+          }}
+        </span>
         <div :data-type="project.type" class="home-marquee-middle-center">
           <span
             ref="projectLink"
             :data-name="project.title"
             class="middle--center"
-            >{{ project.title }}</span
-          >
+          >{{ project.title }}</span>
         </div>
-        <span
-          v-for="i in 3"
-          :key="'yu' + i"
-          class="home-marquee-middle-right"
-          >{{ project.title }}</span
-        >
+        <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
     </div>
     <div class="home-marquee">
@@ -50,12 +42,8 @@
         :key="index"
         class="home-marquee--row marquee-title stroke right"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yr' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'yn' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yr' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yn' + i">{{ project.title }}</div>
       </div>
     </div>
     <!-- <Marquee ref="thirdRow" :dynamic="true"></Marquee> -->
@@ -66,8 +54,7 @@
           ref="currentPagination"
           v-for="(project, index) in projects"
           :key="index"
-          >0{{ index + 1 }}</span
-        >
+        >0{{ index + 1 }}</span>
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
@@ -96,6 +83,7 @@
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
 import Emitter from '~/assets/js/Events'
+import VirtualScroll from '~/assets/js/VirtualScroll'
 // import Marquee from '~/components/Marquee'
 
 export default {
@@ -118,13 +106,12 @@ export default {
       indexProject: state => state.indexProject
     })
   },
-  beforeMount() {},
   mounted() {
     // this.$cursor.add()
     this.handleEvents()
   },
   beforeDestroy() {
-    document.removeEventListener('click', this.handleMouseClick)
+    document.removeEventListener('click', this.nextSlide)
 
     this.$refs.projectLink.forEach(element => {
       element.removeEventListener('click', this.handleProjectSelected)
@@ -140,19 +127,21 @@ export default {
     }),
     handleEvents() {
       document.addEventListener('click', this.nextSlide)
-
+      // console.log(VirtualScroll)
       this.$refs.projectLink.forEach(element => {
         element.addEventListener('click', this.handleProjectSelected)
-        element.addEventListener('mousemove', this.handleMoveGallery)
         element.addEventListener('mouseover', this.handleProjectHover)
         element.addEventListener('mouseleave', this.handleProjectLeave)
+        element.addEventListener('mousemove', this.handleMoveGallery)
       })
     },
     nextSlide(e) {
       if (
         e.target !== this.$refs.projectLink[this.indexProject] &&
-        !this.sliderInProgress
+        !this.sliderInProgress &&
+        !e.target.classList.contains('nav-menu--link')
       ) {
+        console.log('fdfdsf', this.$refs.currentPagination)
         this.sliderInProgress = true
         this.setIndexProject()
         this.setCurrentProject()
