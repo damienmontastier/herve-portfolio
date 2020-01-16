@@ -1,21 +1,23 @@
-
-
 <template>
   <div class="marquee">
     <div v-if="dynamic" class="home-marquee">
       <div
         v-for="(project, index) in projects"
         :key="index"
-        class="home-marquee--row marquee-title left"
+        class="home-marquee--row marquee-title stroke left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
+          {{ project.title }}
+        </div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
+          {{ project.title }}
+        </div>
       </div>
     </div>
     <div v-else class="home-marquee">
-      <div class="home-marquee--row marquee-title left">
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{text}}</div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{text}}</div>
+      <div class="home-marquee--row marquee-title fill left">
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ text }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ text }}</div>
       </div>
     </div>
   </div>
@@ -73,10 +75,10 @@ export default {
 
 @keyframes marqueeAnimation {
   from {
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-100%) translateZ(0);
   }
 }
 </style>

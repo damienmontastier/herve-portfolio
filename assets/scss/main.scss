@@ -5,6 +5,7 @@
 
 body,
 html {
+  position: relative;
   overflow: hidden;
   background: $black;
   width: 100%;
@@ -15,11 +16,49 @@ html {
   font-family: 'Gandur', 'Source Sans Pro';
   font-size: 248px;
   text-transform: uppercase;
-  -webkit-text-stroke: 1px #ffffff;
-  color: transparent;
   white-space: nowrap;
+
+  &.stroke {
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff;
+  }
+
+  &.fill {
+    color: white;
+  }
 
   @include respond-to(xxl) {
     font-size: 380px;
+  }
+}
+
+.container {
+  margin: 0 85px 0 45px;
+
+  @include respond-to(sm) {
+    margin: 0 45px;
+  }
+  &-row {
+    display: flex;
+    color: white;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 80px;
+    flex-wrap: wrap;
+
+    span {
+      margin-right: auto;
+      min-width: 100px;
+    }
+    &--content {
+      margin-right: auto;
+      max-width: 650px;
+      min-width: 650px;
+      text-transform: initial;
+
+      @include respond-to(sm) {
+        min-width: 100%;
+      }
+    }
   }
 }
