@@ -297,6 +297,11 @@ export default {
         content: '\00a0';
       }
 
+      &.left,
+      &.right {
+        opacity: 0.2;
+      }
+
       &.left .row--inner {
         animation: 30s marqueeAnimation infinite linear;
       }
@@ -312,6 +317,7 @@ export default {
       &-left,
       &-right {
         display: block;
+        opacity: 0.2;
       }
 
       &-left {
@@ -425,6 +431,7 @@ export default {
     visibility: hidden;
     mix-blend-mode: screen;
     pointer-events: none;
+    z-index: 999999999;
 
     &.active {
       opacity: 1;
@@ -471,19 +478,6 @@ export default {
       }
     }
   }
-}
-.divFrontOf {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  pointer-events: none;
-}
-.elements-cloned {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  pointer-events: none;
 }
 
 @keyframes marqueeAnimation {

@@ -1,4 +1,4 @@
-// import Events from '../../plugins/bus.js'
+import Emitter from '@/assets/js/Events'
 
 // if (typeof window !== 'undefined') {
 //   const VirtualScroll = require('virtual-scroll')
