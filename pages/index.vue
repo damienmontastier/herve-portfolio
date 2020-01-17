@@ -26,11 +26,16 @@
           }}
         </span>
         <div :data-type="project.type" class="home-marquee-middle-center">
-          <span
-            ref="projectLink"
-            :data-name="project.title"
-            class="middle--center"
-          >{{ project.title }}</span>
+          <nuxt-link
+            :key="project.title.toLowerCase()"
+            :to="{ name: 'works-project', params: {project: project.title.toLowerCase() }}"
+          >
+            <span
+              ref="projectLink"
+              :data-name="project.title"
+              class="middle--center"
+            >{{ project.title }}</span>
+          </nuxt-link>
         </div>
         <span v-for="i in 3" :key="'yu' + i" class="home-marquee-middle-right">{{ project.title }}</span>
       </div>
@@ -83,7 +88,7 @@
 import gsap from 'gsap'
 import { mapState, mapMutations } from 'vuex'
 import Emitter from '~/assets/js/Events'
-import VirtualScroll from '~/assets/js/VirtualScroll'
+// import VirtualScroll from '~/assets/js/VirtualScroll'
 // import Marquee from '~/components/Marquee'
 
 export default {
@@ -104,7 +109,10 @@ export default {
       nextProject: state => state.nextProject,
       previousProject: state => state.previousProject,
       indexProject: state => state.indexProject
-    })
+    }),
+    slug() {
+      return this.currentProject.project.title.toLowerCase()
+    }
   },
   mounted() {
     // this.$cursor.add()
@@ -245,6 +253,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
 .home {
   min-height: 100vh;
   height: 100vh;
@@ -348,6 +359,8 @@ export default {
         .middle--center {
           display: block;
           position: relative;
+          color: transparent;
+          -webkit-text-stroke-color: white;
 
           &.active {
             &::after {

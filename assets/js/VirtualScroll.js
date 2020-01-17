@@ -2,7 +2,7 @@ import VirtualScroll from 'virtual-scroll'
 import Emitter from '@/assets/js/Events'
 
 if (process.client) {
-  const virtualScroll = new VirtualScroll({
+  var virtualScroll = new VirtualScroll({
     useKeyboard: false
   })
 }
