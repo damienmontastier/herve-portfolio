@@ -13,7 +13,11 @@ html {
   height: 100%;
 }
 
-.marquee-title {
+a {
+  text-decoration: none;
+}
+
+.m-title {
   font-family: 'Gandur', 'Source Sans Pro';
   font-size: 248px;
   text-transform: uppercase;

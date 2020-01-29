@@ -1,10 +1,6 @@
 <template>
   <div ref="about" class="about">
-    <Marquee
-      class="about-marquee"
-      :dynamic="false"
-      text="Let's connect"
-    ></Marquee>
+    <Marquee class="about-marquee" :dynamic="false" text="Let's connect"></Marquee>
     <div class="container">
       <div class="container-row about">
         <span class="name-part">about</span>
@@ -40,15 +36,9 @@
         <span class="name-part">find me</span>
         <div class="container-row--content">
           <ul>
-            <li>
-              Twitter
-            </li>
-            <li>
-              Twitter
-            </li>
-            <li>
-              Twitter
-            </li>
+            <li>Twitter</li>
+            <li>Twitter</li>
+            <li>Twitter</li>
           </ul>
         </div>
       </div>

@@ -1,21 +1,17 @@
 <template>
   <div class="marquee">
-    <div v-if="dynamic" class="home-marquee">
+    <div v-if="dynamic" class="home__m">
       <div
         v-for="(project, index) in projects"
         :key="index"
-        class="home-marquee--row marquee-title stroke left"
+        class="home__m--row m-title stroke left"
       >
-        <div class="row--inner" v-for="i in 5" :key="'yo' + i">
-          {{ project.title }}
-        </div>
-        <div class="row--inner" v-for="i in 5" :key="'ya' + i">
-          {{ project.title }}
-        </div>
+        <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
+        <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
     </div>
-    <div v-else class="home-marquee">
-      <div class="home-marquee--row marquee-title fill left">
+    <div v-else class="home__m">
+      <div class="home__m--row m-title fill left">
         <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ text }}</div>
         <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ text }}</div>
       </div>
@@ -45,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home-marquee {
+.home__m {
   transform: rotate(-5deg);
   overflow: hidden;
   width: 100%;

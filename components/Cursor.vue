@@ -48,13 +48,27 @@ export default {
     handleEvents() {
       document.addEventListener('mousemove', this.handleMouseMove)
 
-      Emitter.on('cursorTransform', this.cursorTransform)
+      Emitter.on('cursorHoverProject', this.cursorTransform)
 
       Emitter.on('blockCursor', bool => (this.cursorBlocked = bool))
     },
     handleMouseMove(e) {
       this.mousePosition.x = e.clientX
       this.mousePosition.y = e.clientY
+
+      if (!this.cursorBlockRotation && e.clientY < window.innerHeight / 2) {
+        gsap.to(this.$refs.cursor, {
+          duration: 0.8,
+          rotation: '180deg',
+          ease: 'power2.out'
+        })
+      } else {
+        gsap.to(this.$refs.cursor, {
+          duration: 0.8,
+          rotation: '0deg',
+          ease: 'power2.out'
+        })
+      }
 
       if (!this.cursorBlocked) {
         gsap.to(this.$refs.cursor, {
@@ -67,6 +81,7 @@ export default {
     },
     cursorTransform(bool) {
       if (bool) {
+        this.cursorBlockRotation = true
         gsap.to(this.$refs.cursor, {
           duration: 0.3,
           background: 'white'
@@ -80,6 +95,8 @@ export default {
           duration: 0.3
         })
       } else {
+        this.cursorBlockRotation = false
+
         gsap.to(this.$refs.arrow, {
           duration: 0.3,
           rotate: 0
