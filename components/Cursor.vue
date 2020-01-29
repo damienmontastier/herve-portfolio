@@ -59,7 +59,7 @@ export default {
       if (!this.cursorBlockRotation && e.clientY < window.innerHeight / 2) {
         gsap.to(this.$refs.cursor, {
           duration: 0.8,
-          rotation: '180deg',
+          rotation: '-180deg',
           ease: 'power2.out'
         })
       } else {

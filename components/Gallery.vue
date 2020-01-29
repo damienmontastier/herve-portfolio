@@ -58,7 +58,6 @@ export default {
       Emitter.emit('cursorHoverProject', false)
     },
     handleMoveGallery(event) {
-      console.log(event.clientX)
       const { width, height } = this.$refs.gallery.getBoundingClientRect()
       gsap.to(this.$refs.gallery, {
         x: event.clientX - width / 2,
@@ -91,15 +90,15 @@ export default {
   width: 860px;
   height: 485px;
   opacity: 0;
-  visibility: hidden;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 99999;
   top: 0;
   left: 0;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
   &.active {
     opacity: 1;
-    visibility: visible;
 
     .gallery-mask {
       height: 100%;
@@ -113,7 +112,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   &-holder {
     width: 150%;
@@ -123,15 +122,15 @@ export default {
 
     picture {
       opacity: 0;
-      visibility: hidden;
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
       &.active {
         opacity: 1;
-        visibility: visible;
       }
       img {
         width: 100%;
