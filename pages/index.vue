@@ -35,7 +35,6 @@ export default {
 
     leave(el, done) {
       if (this.$router.currentRoute.name === 'works-project') {
-        // const transitionNode = document.querySelector('.transition--home')
         const firstLayer = document.querySelector('.first-layer')
         const secondLayer = document.querySelector('.second-layer')
         gsap.to(firstLayer, {

@@ -28,7 +28,7 @@ export default {
   mounted() {
     this.handleEvents()
   },
-  beforeDestroy() {
+  destroyed() {
     this.$parent.$refs.linkProject.forEach(element => {
       element.removeEventListener('mouseover', this.handleProjectHover)
       element.removeEventListener('mouseleave', this.handleProjectLeave)
@@ -56,6 +56,8 @@ export default {
       Emitter.emit('cursorHoverProject', false)
     },
     handleMoveGallery(event) {
+      console.log(this.$refs.gallery)
+
       const { width, height } = this.$refs.gallery.getBoundingClientRect()
       gsap.to(this.$refs.gallery, {
         x: event.clientX - width / 2,

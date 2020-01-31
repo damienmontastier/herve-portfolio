@@ -95,19 +95,23 @@ export default {
     this.handleEvents()
   },
   beforeDestroy() {
-    document.removeEventListener('click', this.handleMouseClick.bind(this))
+    document.removeEventListener('click', this.handleMouseClick)
+
+    this.$refs.linkProject.forEach(link => {
+      link.removeEventListener('click', this.goToProject)
+    })
   },
   methods: {
     handleEvents() {
-      document.addEventListener('click', this.handleMouseClick.bind(this))
+      document.addEventListener('click', this.handleMouseClick)
 
       this.$refs.linkProject.forEach(link => {
-        link.addEventListener('click', this.goToProject.bind(this))
+        link.addEventListener('click', this.goToProject)
       })
     },
 
     handleMouseClick(e) {
-      if (e.target.localName !== 'a') {
+      if (!e.target.classList.contains('middle--center') && e.target.localName !== 'a') {
         if (e.clientY < window.innerHeight / 2) {
           this.previousSlide()
         } else {
