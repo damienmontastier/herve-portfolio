@@ -3,30 +3,59 @@
     <Nav />
     <nuxt />
     <Pointer />
-    <!-- <WebGL /> -->
+    <div class="transition">
+      <div class="transition--home">
+        <div class="first-layer"></div>
+        <div class="second-layer"></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Nav from '@/components/Nav'
-import Pointer from '@/components/Cursor'
-// import WebGL from '@/components/WebGL'
-
 export default {
   components: {
-    Nav,
-    Pointer
-    // WebGL
+    Nav: () => import('@/components/Nav'),
+    Pointer: () => import('@/components/Cursor')
   },
   head() {
     return {
-      script: [
-        { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }
-      ]
+      script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }]
     }
   }
 }
 </script>
 
-<style>
-</style>
+<style lang="scss" scoped>
+.transition {
+  pointer-events: none;
+  &--home {
+    position: absolute;
+    width: 110vw;
+    height: 120%;
+    right: 0;
+    bottom: -100px;
+    left: -5vw;
+    z-index: 999999;
+    transform: rotate(-5deg);
+    overflow: hidden;
+    .first-layer,
+    .second-layer {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      // opacity: 0.4;
+    }
+    .first-layer {
+      background: red;
+      height: 0%;
+    }
+    .second-layer {
+      height: 0%;
+      background: $black;
+    }
+  }
+}
+</style>>
+
+

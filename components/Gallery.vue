@@ -29,8 +29,7 @@ export default {
     this.handleEvents()
   },
   beforeDestroy() {
-    this.$parent.$refs.slider.$refs.linkProject.forEach(element => {
-      element.removeEventListener('click', this.handleProjectSelected)
+    this.$parent.$refs.linkProject.forEach(element => {
       element.removeEventListener('mouseover', this.handleProjectHover)
       element.removeEventListener('mouseleave', this.handleProjectLeave)
       element.removeEventListener('mousemove', this.handleMoveGallery)
@@ -38,21 +37,20 @@ export default {
   },
   methods: {
     handleEvents() {
-      this.$parent.$refs.slider.$refs.linkProject.forEach(element => {
-        element.addEventListener('click', this.handleProjectSelected)
+      this.$parent.$refs.linkProject.forEach(element => {
         element.addEventListener('mouseover', this.handleProjectHover)
         element.addEventListener('mouseleave', this.handleProjectLeave)
         element.addEventListener('mousemove', this.handleMoveGallery)
       })
     },
     handleProjectHover() {
-      this.$refs.galleryPictures[this.currentProject.index].classList.add('active')
+      this.$refs.galleryPictures[this.currentProject].classList.add('active')
       this.$refs.gallery.classList.add('active')
       event.currentTarget.classList.add('active')
       Emitter.emit('cursorHoverProject', true)
     },
     handleProjectLeave(event) {
-      this.$refs.galleryPictures[this.currentProject.index].classList.remove('active')
+      this.$refs.galleryPictures[this.currentProject].classList.remove('active')
       this.$refs.gallery.classList.remove('active')
       event.currentTarget.classList.remove('active')
       Emitter.emit('cursorHoverProject', false)

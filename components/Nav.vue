@@ -29,7 +29,7 @@ export default {
   position: absolute;
   top: 50px;
   left: 60px;
-  z-index: 999;
+  z-index: 999999999999;
 
   ul {
     display: inline-flex;

@@ -13,7 +13,8 @@
             class="row--inner"
             v-for="i in 8"
             :key="'slider_bottom_inner' + i"
-          >{{ project.title }}</div>
+            v-html="project.title"
+          ></div>
         </div>
       </transition-group>
     </div>
@@ -26,28 +27,31 @@
           v-show="currentProject === index"
           class="slider__m--row slider__m--center slider__m-middle m-title stroke"
         >
-          <span v-for="i in 3" :key="'slider_center' + i" class="slider__m-middle-left">
-            {{
-            project.title
-            }}
-          </span>
+          <span
+            v-for="i in 3"
+            :key="'slider_center' + i"
+            class="slider__m-middle-left"
+            v-html="project.title"
+          ></span>
           <div :data-type="project.type" class="slider__m-middle-center">
-            <nuxt-link
+            <!-- <nuxt-link
               :key="project.title.toLowerCase()"
               :to="{ name: 'works-project', params: {project: project.title.toLowerCase() }}"
-            >
-              <span
-                ref="linkProject"
-                :data-name="project.title"
-                class="middle--center"
-              >{{ project.title }}</span>
-            </nuxt-link>
+            >-->
+            <span
+              ref="linkProject"
+              :data-name="project.title"
+              class="middle--center"
+              v-html="project.title"
+            ></span>
+            <!-- </nuxt-link> -->
           </div>
           <span
             v-for="i in 3"
             :key="'slider_bottom' + i"
             class="slider__m-middle-right"
-          >{{ project.title }}</span>
+            v-html="project.title"
+          ></span>
         </div>
       </transition-group>
     </div>
@@ -64,10 +68,12 @@
             class="row--inner"
             v-for="i in 8"
             :key="'slider_bottom_inner' + i"
-          >{{ project.title }}</div>
+            v-html="project.title"
+          ></div>
         </div>
       </transition-group>
     </div>
+    <Gallery></Gallery>
   </div>
 </template>
 
@@ -75,12 +81,16 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+  components: {
+    Gallery: () => import('@/components/Gallery')
+  },
   data() {
     return {
       currentIndex: 0,
       direction: null
     }
   },
+  created() {},
   mounted() {
     this.handleEvents()
   },
@@ -90,14 +100,29 @@ export default {
   methods: {
     handleEvents() {
       document.addEventListener('click', this.handleMouseClick.bind(this))
+
+      this.$refs.linkProject.forEach(link => {
+        link.addEventListener('click', this.goToProject.bind(this))
+      })
     },
 
     handleMouseClick(e) {
-      if (e.clientY < window.innerHeight / 2) {
-        this.previousSlide()
-      } else {
-        this.nextSlide()
+      if (e.target.localName !== 'a') {
+        if (e.clientY < window.innerHeight / 2) {
+          this.previousSlide()
+        } else {
+          this.nextSlide()
+        }
       }
+    },
+    goToProject() {
+      this.$router.push({
+        name: 'works-project',
+        params: {
+          project: this.projects[this.currentProject].title.toLowerCase()
+        }
+      })
+      console.log('go to the project')
     },
     nextSlide() {
       this.direction = 'next'
@@ -116,6 +141,7 @@ export default {
   computed: {
     ...mapState({
       projects: state => state.projects,
+      currentProject: state => state.currentProject,
       nextProject: state => state.nextProject,
       previousProject: state => state.previousProject
     }),
@@ -150,39 +176,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.next-enter-active,
-.next-leave-active,
-.previous-enter-active,
-.previous-leave-active {
-  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.next-enter {
-  transform: translate3d(0, 150%, 0) !important;
-}
-.next-enter-to {
-  transform: translate3d(0, 0%, 0) !important;
-}
-.next-leave {
-  transform: translate3d(0, 0%, 0) !important;
-}
-.next-leave-to {
-  transform: translate3d(0, -150%, 0) !important;
-}
-
-.previous-enter {
-  transform: translate3d(0, -150%, 0) !important;
-}
-.previous-enter-to {
-  transform: translate3d(0, 0%, 0) !important;
-}
-.previous-leave {
-  transform: translate3d(0, 0%, 0) !important;
-}
-.previous-leave-to {
-  transform: translate3d(0, 150%, 0) !important;
-}
-
 .slider {
   width: 100%;
   height: 100vh;
@@ -208,7 +201,7 @@ export default {
       top: 0;
       left: 0;
       @include respond-to(xxl) {
-        font-size: 380px;
+        font-size: size(380px);
       }
 
       .row--inner::after {

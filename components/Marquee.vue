@@ -61,10 +61,10 @@ export default {
     }
 
     &.left .row--inner {
-      animation: 30s marqueeAnimation infinite linear;
+      animation: 10s marqueeAnimation infinite linear;
     }
     &.right .row--inner {
-      animation: 30s marqueeAnimation infinite linear reverse;
+      animation: 10s marqueeAnimation infinite linear reverse;
     }
   }
 }

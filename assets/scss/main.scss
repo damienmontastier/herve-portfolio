@@ -19,7 +19,7 @@ a {
 
 .m-title {
   font-family: 'Gandur', 'Source Sans Pro';
-  font-size: 248px;
+  font-size: size(248px);
   text-transform: uppercase;
   white-space: nowrap;
 
@@ -38,7 +38,7 @@ a {
 }
 
 .container {
-  margin: 0 85px 0 45px;
+  margin: 0 45px;
 
   @include respond-to(sm) {
     margin: 0 45px;
@@ -66,4 +66,37 @@ a {
       }
     }
   }
+}
+
+.next-enter-active,
+.next-leave-active,
+.previous-enter-active,
+.previous-leave-active {
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.next-enter {
+  transform: translate3d(0, 150%, 0) !important;
+}
+.next-enter-to {
+  transform: translate3d(0, 0%, 0) !important;
+}
+.next-leave {
+  transform: translate3d(0, 0%, 0) !important;
+}
+.next-leave-to {
+  transform: translate3d(0, -150%, 0) !important;
+}
+
+.previous-enter {
+  transform: translate3d(0, -150%, 0) !important;
+}
+.previous-enter-to {
+  transform: translate3d(0, 0%, 0) !important;
+}
+.previous-leave {
+  transform: translate3d(0, 0%, 0) !important;
+}
+.previous-leave-to {
+  transform: translate3d(0, 150%, 0) !important;
 }

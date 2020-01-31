@@ -55,6 +55,8 @@
 
 <script>
 import { mapState } from 'vuex'
+// import gsap from 'gsap'
+
 import Marquee from '~/components/Marquee'
 
 export default {

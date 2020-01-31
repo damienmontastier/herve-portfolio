@@ -7,6 +7,7 @@ $breakpoints: (
   lg: unquote('screen and (max-width: #{rem(1280px)})'),
   sh: unquote('screen and (max-height: #{rem(767px)})'),
   md: unquote('screen and (max-width: #{rem(1023px)})'),
+  md-: unquote('screen and (max-width: #{rem(960px)})'),
   sm: unquote('screen and (max-width: #{rem(767px)})')
 );
 
@@ -14,3 +15,22 @@ $zindex: (
   below: -1,
   default: 1
 );
+
+@function rem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@function size($size) {
+  @return calc(#{$size} + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: ' ';
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+}

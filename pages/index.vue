@@ -4,30 +4,62 @@
 
     <div class="home-pagination">
       <div class="home-pagination--current">
-        <span
-          ref="currentPagination"
-          v-for="(project, index) in projects"
-          :key="index"
-        >0{{ currentProject.index + 1 }}</span>
+        <transition-group :name="translate">
+          <span
+            ref="currentPagination"
+            v-for="(project, index) in projects"
+            v-show="currentProject === index"
+            :key="index"
+          >0{{ index + 1 }}</span>
+        </transition-group>
       </div>
       <div class="home-pagination--line">
         <span ref="line" />
       </div>
       <div class="home-pagination--total">0{{ projects.length }}</div>
     </div>
-    <Gallery></Gallery>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Slider from '@/components/Slider'
-import Gallery from '@/components/Gallery'
+import gsap from 'gsap'
 
 export default {
+  transition: {
+    css: false,
+    mode: 'in-out',
+    enter(el, done) {
+      done()
+    },
+
+    leave(el, done) {
+      if (this.$router.currentRoute.name === 'works-project') {
+        // const transitionNode = document.querySelector('.transition--home')
+        const firstLayer = document.querySelector('.first-layer')
+        const secondLayer = document.querySelector('.second-layer')
+        gsap.to(firstLayer, {
+          height: '100%',
+          duration: 1
+        })
+        const tn = gsap.to(secondLayer, {
+          height: '100%',
+          duration: 1.5,
+          onUpdate() {
+            if (tn.progress() > 0.5) {
+              done()
+            }
+          },
+          onComplete: () => {
+            gsap.set(firstLayer, { clearProps: 'all' })
+            gsap.set(secondLayer, { clearProps: 'all' })
+          }
+        })
+      }
+    }
+  },
   components: {
-    Slider,
-    Gallery
+    Slider: () => import('@/components/Slider')
   },
   data() {
     return {}
@@ -38,7 +70,10 @@ export default {
       currentProject: state => state.currentProject,
       nextProject: state => state.nextProject,
       previousProject: state => state.previousProject
-    })
+    }),
+    translate() {
+      return this.currentProject !== this.previousProject ? 'previous' : 'next'
+    }
   },
   mounted() {},
 
@@ -70,8 +105,12 @@ a {
       flex-flow: column;
       align-items: center;
       font-weight: 900;
+      min-width: 16px;
 
       span {
+        position: absolute;
+        top: 0;
+        left: 0;
         font-size: 15px;
       }
     }

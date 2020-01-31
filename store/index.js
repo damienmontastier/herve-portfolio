@@ -1,8 +1,8 @@
 export const state = () => ({
   projects: [],
-  currentProject: { index: 0 },
-  previousProject: { index: null },
-  nextProject: { index: null }
+  currentProject: 0,
+  previousProject: null,
+  nextProject: null
 })
 
 export const mutations = {
@@ -10,13 +10,13 @@ export const mutations = {
     state.projects = list
   },
   setCurrentProject(state, index) {
-    state.currentProject.index = index
+    state.currentProject = index
   },
   setNextProject(state, index) {
-    state.nextProject.index = index
+    state.nextProject = index
   },
   setPreviousProject(state, index) {
-    state.previousProject.index = index
+    state.previousProject = index
   }
 }
 
@@ -31,6 +31,5 @@ export const actions = {
       return res
     })
     await commit('setProjects', projects)
-    await commit('setCurrentProject', 0)
   }
 }

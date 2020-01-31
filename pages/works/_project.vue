@@ -1,13 +1,20 @@
 <template>
   <div ref="project" class="project">
-    <p>0{{indexProject}}</p>
+    <!-- <p>0{{indexProject}}</p> -->
     <Marquee class="project-marquee" :dynamic="false" :text="project[1].title"></Marquee>
     <div class="project-thumbnail">
       <img :src="project[1].thumbnail" />
     </div>
     <div class="container">
-      <div class="container-row about">
-        <span class="name-part">about</span>
+      <div class="container-row description">
+        <span class="name-part">
+          <ul>
+            <li>Twitter</li>
+            <li>Twitter</li>
+            <li>Twitter</li>
+            <li>Twitter</li>
+          </ul>
+        </span>
         <div class="container-row--content">
           <p>
             His back film little was you the a frequency on frequency
@@ -17,58 +24,61 @@
           </p>
         </div>
       </div>
-      <div class="container-row experiences">
-        <span class="name-part">experience</span>
-        <div class="container-row--content">
-          <ul>
-            <li>
-              <span>AQKA</span>
-              <p>Interactive and motion designer / 2019 - present</p>
-            </li>
-            <li>
-              <span>AQKA</span>
-              <p>Interactive and motion designer / 2019 - present</p>
-            </li>
-            <li>
-              <span>AQKA</span>
-              <p>Interactive and motion designer / 2019 - present</p>
-            </li>
-          </ul>
-        </div>
+    </div>
+    <div class="project-visuals">
+      <div class="visual">
+        <picture>
+          <source media="(min-width: )" srcset sizes />
+          <img src alt srcset />
+        </picture>
       </div>
-      <div class="container-row social-network">
-        <span class="name-part">find me</span>
-        <div class="container-row--content">
-          <ul>
-            <li>Twitter</li>
-            <li>Twitter</li>
-            <li>Twitter</li>
-          </ul>
-        </div>
+      <div class="visual">
+        <picture>
+          <source media="(min-width: )" srcset sizes />
+          <img src alt srcset />
+        </picture>
       </div>
-      <div class="container-row credits">
-        <span class="name-part">Credits</span>
-        <div class="container-row--content">
-          <p>Coded by Damien</p>
-        </div>
+      <div class="visual">
+        <picture>
+          <source media="(min-width: )" srcset sizes />
+          <img src alt srcset />
+        </picture>
       </div>
     </div>
-    <div class="project-visuals"></div>
     <div class="project-footer"></div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import gsap from 'gsap'
 import Marquee from '~/components/Marquee'
 
 export default {
+  transition: {
+    css: false,
+    mode: 'in-out',
+    enter(el, done) {
+      const test = el.querySelector('.home__m--row')
+
+      gsap.from(test, {
+        x: '-300%',
+        y: '100vh',
+        z: 0,
+        duration: 1.5
+      })
+      done()
+    },
+
+    leave(el, done) {
+      done()
+    }
+  },
   validate({ store, params }) {
     return Object.values(store.state.projects).find(project => project.title.toLowerCase() === params.project)
   },
   asyncData({ route, store, params, query }) {
     const project = Object.entries(store.state.projects).find(project => project[1].title.toLowerCase() === params.project)
-    console.log(project)
     return { project }
   },
   components: {
@@ -92,10 +102,44 @@ export default {
 
 <style lang="scss" scoped>
 .project {
-  &__marquee {
-    z-index: 99;
-    position: relative;
+  .container {
+    .container-row {
+      span.name-part {
+        position: absolute;
+        left: 0;
+        font-size: size(12px);
+        font-weight: 200;
+        font-family: 'Manrope';
+
+        @include respond-to(md-) {
+          position: relative;
+        }
+      }
+      &--content {
+        margin: auto;
+        max-width: 650px;
+        min-width: 50vw;
+        font-family: 'Manrope';
+        font-size: size(31px);
+        font-weight: 200;
+
+        p {
+          line-height: size(42px);
+        }
+
+        @include respond-to(md-) {
+          margin: auto;
+          min-width: 100%;
+        }
+      }
+    }
   }
+  &-marquee {
+    z-index: 9999999999;
+    position: relative;
+    margin-top: 150px;
+  }
+
   &-thumbnail {
     display: flex;
     max-height: 540px;
@@ -111,6 +155,33 @@ export default {
       object-fit: cover;
       position: relative;
     }
+  }
+  &-visuals {
+    position: relative;
+    width: 100%;
+    background: #efefef;
+    padding-bottom: 100px;
+    .visual {
+      @include aspect-ratio(869, 498);
+      margin: 0 20vw 100px;
+    }
+    & picture {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      img {
+      }
+    }
+  }
+}
+body.home__m {
+  background: red !important;
+
+  &--row {
+    background: red;
   }
 }
 </style>
