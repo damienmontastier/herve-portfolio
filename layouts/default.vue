@@ -44,10 +44,10 @@ export default {
       width: 100%;
       position: absolute;
       bottom: 0;
-      opacity: 0.4;
+      // opacity: 0.4;
     }
     .first-layer {
-      background: red;
+      background: white;
       height: 0%;
     }
     .second-layer {
