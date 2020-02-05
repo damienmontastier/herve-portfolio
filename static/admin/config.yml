@@ -17,9 +17,9 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Type', name: 'type', widget: 'string' }
-      - { label: 'Thumbnail', name: 'thumbnail', widget: 'image', media_library: {config: {multiple: true }}}
+      - { label: 'Thumbnail', name: 'thumbnail', widget: 'image', media_library: { config: { multiple: true } } }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: "Gallery", name: "galleryImages", widget: "list", field: {label: Image, name: image, widget: image}
+      - { label: 'Gallery', name: 'galleryImages', widget: 'list', field: { label: Image, name: image, widget: image } }
   - name: 'about'
     label: 'A propos'
     format: 'json'
