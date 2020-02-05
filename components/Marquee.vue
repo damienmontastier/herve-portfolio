@@ -1,17 +1,13 @@
 <template>
   <div class="marquee">
-    <div v-if="dynamic" class="home__m">
-      <div
-        v-for="(project, index) in projects"
-        :key="index"
-        class="home__m--row m-title stroke left"
-      >
+    <div v-if="dynamic" class="m">
+      <div v-for="(project, index) in projects" :key="index" class="m__row m-title stroke left">
         <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ project.title }}</div>
         <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ project.title }}</div>
       </div>
     </div>
-    <div v-else class="home__m">
-      <div class="home__m--row m-title fill left">
+    <div v-else class="m">
+      <div class="m__row m-title fill left">
         <div class="row--inner" v-for="i in 5" :key="'yo' + i">{{ text }}</div>
         <div class="row--inner" v-for="i in 5" :key="'ya' + i">{{ text }}</div>
       </div>
@@ -41,13 +37,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home__m {
+.m {
   transform: rotate(-5deg);
   overflow: hidden;
   width: 100%;
   position: relative;
 
-  &--row {
+  &__row {
     position: relative;
     display: flex;
     width: 100%;
@@ -71,10 +67,10 @@ export default {
 
 @keyframes marqueeAnimation {
   from {
-    transform: translateX(0) translateZ(0);
+    transform: translateX(-150%) translateZ(0);
   }
   to {
-    transform: translateX(-100%) translateZ(0);
+    transform: translateX(-250%) translateZ(0);
   }
 }
 </style>

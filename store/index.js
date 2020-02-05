@@ -13,6 +13,7 @@ export const mutations = {
     state.currentProject = index
   },
   setNextProject(state, index) {
+    console.log(index)
     state.nextProject = index
   },
   setPreviousProject(state, index) {

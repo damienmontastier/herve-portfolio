@@ -1,6 +1,5 @@
 <template>
   <div ref="project" class="project">
-    <!-- <p>0{{indexProject}}</p> -->
     <Marquee class="project-marquee" :dynamic="false" :text="project[1].title"></Marquee>
     <div class="project-thumbnail">
       <img :src="project[1].thumbnail" />
@@ -21,31 +20,24 @@
       </div>
     </div>
     <div class="project-visuals">
-      <div class="visual">
+      <div v-for="(picture, index) in project[1].pictures" :key="index" class="visual">
         <picture>
           <source media="(min-width: )" srcset sizes />
-          <img src alt srcset />
-        </picture>
-      </div>
-      <div class="visual">
-        <picture>
-          <source media="(min-width: )" srcset sizes />
-          <img src alt srcset />
-        </picture>
-      </div>
-      <div class="visual">
-        <picture>
-          <source media="(min-width: )" srcset sizes />
-          <img src alt srcset />
+          <img :src="picture" alt srcset />
         </picture>
       </div>
     </div>
-    <div class="project-footer"></div>
+    <div class="footer">
+      <div class="footer__inner">
+        <p>Scroll to see the next project</p>
+        <Marquee class="project-marquee" :dynamic="false" :text="projects[nextProject].title"></Marquee>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import gsap from 'gsap'
 import Marquee from '~/components/Marquee'
 
@@ -54,13 +46,13 @@ export default {
     css: false,
     mode: 'in-out',
     enter(el, done) {
-      const test = el.querySelector('.home__m--row')
+      const test = el.querySelector('.m__row')
 
       gsap.from(test, {
-        x: '-300%',
+        x: '200%',
         y: '100vh',
         z: 0,
-        duration: 1.5
+        duration: 2
       })
       done()
     },
@@ -74,10 +66,28 @@ export default {
   },
   asyncData({ route, store, params, query }) {
     const project = Object.entries(store.state.projects).find(project => project[1].title.toLowerCase() === params.project)
-    return { project }
+    const currentIndex = parseInt(project[0])
+    return { project, currentIndex }
   },
   components: {
     Marquee
+  },
+
+  created() {
+    this.setCurrentProject(this.currentIndex)
+    console.log(this.current === this.projects.length - 1)
+    if (!this.$store.state.nextProject && !this.$store.state.previousProject) {
+      const next = this.currentIndex === this.projects.length - 1 ? 0 : (this.currentIndex += 1)
+      this.setNextProject(next)
+    }
+  },
+  mounted() {},
+  methods: {
+    ...mapMutations({
+      setCurrentProject: 'setCurrentProject',
+      setNextProject: 'setNextProject',
+      setPreviousProject: 'setPreviousProject'
+    })
   },
   computed: {
     ...mapState({
@@ -139,7 +149,7 @@ export default {
     display: flex;
     max-height: 540px;
     overflow: hidden;
-    max-width: 70%;
+    max-width: 75vw;
     min-height: 580px;
     position: relative;
     margin: -50px 0 150px auto;
@@ -155,7 +165,8 @@ export default {
     position: relative;
     width: 100%;
     background: #efefef;
-    padding-bottom: 100px;
+    padding: 180px 0 100px 0;
+
     .visual {
       @include aspect-ratio(869, 498);
       margin: 0 20vw 100px;
@@ -163,20 +174,44 @@ export default {
     & picture {
       width: 100%;
       height: 100%;
-      background: #ffffff;
       position: absolute;
       top: 0;
       left: 0;
+      background: #ffffff;
+      overflow: hidden;
       img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
       }
     }
   }
-}
-body.home__m {
-  background: red !important;
+  .footer {
+    width: 100%;
+    height: 100vh;
+    background: $black;
 
-  &--row {
-    background: red;
+    &__inner {
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+      flex-wrap: wrap;
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+
+      p {
+        font-size: size(14px);
+        font-weight: 200;
+        font-family: 'Manrope';
+        text-transform: uppercase;
+        color: white;
+      }
+
+      .project-marquee {
+        margin-top: 50px;
+      }
+    }
   }
 }
 </style>

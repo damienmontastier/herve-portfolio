@@ -55,19 +55,12 @@
 
 <script>
 import { mapState } from 'vuex'
-// import gsap from 'gsap'
-
-import Marquee from '~/components/Marquee'
 
 export default {
   components: {
-    Marquee
+    Marquee: () => import('@/components/Marquee')
   },
-  data() {
-    return {
-      sliderInProgress: false
-    }
-  },
+
   computed: {
     ...mapState({
       projects: state => state.projects,
@@ -76,13 +69,6 @@ export default {
       previousProject: state => state.previousProject,
       indexProject: state => state.indexProject
     })
-  },
-  mounted() {
-    this.handleEvents()
-  },
-  beforeDestroy() {},
-  methods: {
-    handleEvents() {}
   }
 }
 </script>

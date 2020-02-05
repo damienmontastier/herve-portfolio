@@ -56,8 +56,6 @@ export default {
       Emitter.emit('cursorHoverProject', false)
     },
     handleMoveGallery(event) {
-      console.log(this.$refs.gallery)
-
       const { width, height } = this.$refs.gallery.getBoundingClientRect()
       gsap.to(this.$refs.gallery, {
         x: event.clientX - width / 2,
