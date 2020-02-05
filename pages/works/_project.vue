@@ -16,12 +16,7 @@
           </ul>
         </span>
         <div class="container-row--content">
-          <p>
-            His back film little was you the a frequency on frequency
-            behavioural frequencies eagerly however language needed my in
-            salesmen have the were century good, frequencies eagerly however
-            language needed
-          </p>
+          <p>His back film little was you the a frequency on frequency behavioural frequencies eagerly however language needed my in salesmen have the were century good, frequencies eagerly however language needed</p>
         </div>
       </div>
     </div>

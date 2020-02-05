@@ -13,7 +13,7 @@ collections:
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     editor:
-      preview: false
+    preview: false
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Type', name: 'type', widget: 'string' }
@@ -22,6 +22,7 @@ collections:
             config:
               multiple: true }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: "Gallery", name: "galleryImages", widget: "list", field: {label: Image, name: image, widget: image}
   - name: 'about'
     label: 'A propos'
     format: 'json'
