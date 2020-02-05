@@ -17,7 +17,10 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Type', name: 'type', widget: 'string' }
-      - { label: 'Thumbnail', name: 'thumbnail', widget: 'image' }
+      - { label: 'Thumbnail', name: 'thumbnail', widget: 'image',
+          media_library:
+            config:
+              multiple: true }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
   - name: 'about'
     label: 'A propos'
