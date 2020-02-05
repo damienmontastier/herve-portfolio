@@ -54,6 +54,8 @@ export default {
             gsap.set(secondLayer, { clearProps: 'all' })
           }
         })
+      } else {
+        done()
       }
     }
   },

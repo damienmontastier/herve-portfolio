@@ -126,7 +126,6 @@ export default {
           project: this.projects[this.currentProject].title.toLowerCase()
         }
       })
-      console.log('go to the project')
     },
     nextSlide() {
       this.direction = 'next'
