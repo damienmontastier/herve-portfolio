@@ -100,3 +100,19 @@ a {
 .previous-leave-to {
   transform: translate3d(0, 150%, 0) !important;
 }
+
+.z-below {
+  z-index: -1;
+}
+.z-default {
+  z-index: 1;
+}
+.z-overlay {
+  z-index: 2;
+}
+.z-above {
+  z-index: 3;
+}
+.z-cursor {
+  z-index: 99;
+}

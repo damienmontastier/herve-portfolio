@@ -52,7 +52,8 @@ export default {
         x: '200%',
         y: '100vh',
         z: 0,
-        duration: 2
+        duration: 2,
+        delay: -0.5
       })
       done()
     },

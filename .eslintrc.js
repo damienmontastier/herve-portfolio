@@ -23,6 +23,7 @@ module.exports = {
     ],
     'arrow-parens': ['error', 'as-needed'],
     'no-unexpected-multiline': ['error', 'no-spaced-func'],
-    'no-multiple-empty-lines': ['error', { max: 2 }]
+    'no-multiple-empty-lines': ['error', { max: 2 }],
+    'vue/max-attributes-per-line': [2, { singleline: 7 }]
   }
 }

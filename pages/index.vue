@@ -5,12 +5,7 @@
     <div class="home-pagination">
       <div class="home-pagination--current">
         <transition-group :name="translate">
-          <span
-            ref="currentPagination"
-            v-for="(project, index) in projects"
-            v-show="currentProject === index"
-            :key="index"
-          >0{{ index + 1 }}</span>
+          <span ref="currentPagination" v-for="(project, index) in projects" v-show="currentProject === index" :key="index">0{{ index + 1 }}</span>
         </transition-group>
       </div>
       <div class="home-pagination--line">
@@ -39,13 +34,13 @@ export default {
         const secondLayer = document.querySelector('.second-layer')
         gsap.to(firstLayer, {
           height: '100%',
-          duration: 1
+          duration: 0.8
         })
         const tn = gsap.to(secondLayer, {
           height: '100%',
-          duration: 1.5,
+          duration: 1.2,
           onUpdate() {
-            if (tn.progress() > 0.5) {
+            if (tn.progress() > 0.3) {
               done()
             }
           },
