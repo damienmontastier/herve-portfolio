@@ -17,6 +17,7 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Type', name: 'type', widget: 'string' }
+      - { label: 'Gradient', name: 'gradient', widget: 'string' }
       - { label: 'Thumbnail', name: 'thumbnail', widget: 'image' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
       - { label: 'Project pictures', name: 'pictures', widget: 'list', field: { label: Image, name: image, widget: image } }

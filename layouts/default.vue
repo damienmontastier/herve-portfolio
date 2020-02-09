@@ -2,7 +2,7 @@
   <div>
     <Nav />
     <nuxt />
-    <Pointer />
+    <Pointer v-cursorHandler="cursorComportement" />
     <div class="transition">
       <div class="transition--home">
         <div class="first-layer"></div>
@@ -13,14 +13,49 @@
 </template>
 
 <script>
+import { cursorHandler } from '@/directives/cursor.js'
+
 export default {
+  directives: {
+    cursorHandler
+  },
   components: {
     Nav: () => import('@/components/Nav'),
     Pointer: () => import('@/components/Cursor')
   },
+  data() {
+    return {
+      cursorComportement: 'basic'
+    }
+  },
   head() {
     return {
       script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }]
+    }
+  },
+  created() {
+    this.cursorComportement = this.$route.name
+  },
+  watch: {
+    $route: {
+      handler(route) {
+        // console.log(route, this.$refs.cursor)
+        this.cursorComportement = route.name
+        // switch (route.name) {
+        //   case 'index':
+        //     this.cursorBlockRotation = false
+        //     this.$refs.cursor.classList.remove('cursor--work-about')
+        //     break
+        //   case 'works-project':
+        //   case 'about':
+        //     this.cursorBlockRotation = true
+        //     this.$refs.cursor.classList.add('cursor--work-about')
+        //     break
+
+        //   default:
+        //     break
+        // }
+      }
     }
   }
 }

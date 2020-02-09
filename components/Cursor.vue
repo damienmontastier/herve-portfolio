@@ -1,9 +1,25 @@
 <template>
   <div ref="cursor" class="cursor z-cursor">
-    <svg ref="arrow" class="arrow" width="20" height="31" viewBox="0 0 20 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      ref="arrow"
+      class="arrow"
+      width="20"
+      height="31"
+      viewBox="0 0 20 31"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g ref="arrowG" fill="#FFF" fill-rule="evenodd">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.54807 28.8591L8.99604 0.791321L11.9957 0.839196L11.5477 28.907L8.54807 28.8591Z" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8379 21.6992L10.1174 30.9838L0.684998 21.6311L2.7973 19.5008L10.1565 26.7978L17.7658 19.5298L19.8379 21.6992Z" />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8.54807 28.8591L8.99604 0.791321L11.9957 0.839196L11.5477 28.907L8.54807 28.8591Z"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M19.8379 21.6992L10.1174 30.9838L0.684998 21.6311L2.7973 19.5008L10.1565 26.7978L17.7658 19.5298L19.8379 21.6992Z"
+        />
       </g>
     </svg>
   </div>
@@ -17,7 +33,8 @@ export default {
   data() {
     return {
       mousePosition: { x: 0, y: 0 },
-      cursorParams: {}
+      cursorParams: {},
+      cursorBlockRotation: false
     }
   },
   created() {},
@@ -27,24 +44,6 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener('mousemove', this.handleMouseMove)
-  },
-  watch: {
-    $route: {
-      handler(route) {
-        switch (route.name) {
-          case 'index':
-            this.$refs.cursor.classList.remove('cursor--work-about')
-            break
-          case 'works-project':
-          case 'about':
-            this.$refs.cursor.classList.add('cursor--work-about')
-            break
-
-          default:
-            break
-        }
-      }
-    }
   },
 
   methods: {
@@ -59,19 +58,19 @@ export default {
       this.mousePosition.x = e.clientX
       this.mousePosition.y = e.clientY
 
-      if (!this.cursorBlockRotation && e.clientY < window.innerHeight / 2) {
-        gsap.to(this.$refs.cursor, {
-          duration: 0.8,
-          rotation: '-180deg',
-          ease: 'power2.out'
-        })
-      } else {
-        gsap.to(this.$refs.cursor, {
-          duration: 0.8,
-          rotation: '0deg',
-          ease: 'power2.out'
-        })
-      }
+      // if (!this.cursorBlockRotation && e.clientY < window.innerHeight / 2) {
+      //   gsap.to(this.$refs.cursor, {
+      //     duration: 0.8,
+      //     rotation: '-180deg',
+      //     ease: 'power2.out'
+      //   })
+      // } else {
+      //   gsap.to(this.$refs.cursor, {
+      //     duration: 0.8,
+      //     rotation: '0deg',
+      //     ease: 'power2.out'
+      //   })
+      // }
 
       if (!this.cursorBlocked) {
         gsap.to(this.$refs.cursor, {
@@ -137,6 +136,10 @@ export default {
   &--work-about {
     background: none;
     border: 1px solid white;
+  }
+
+  &.rotate {
+    transform: rotate(-180deg);
   }
 
   &.is-active {

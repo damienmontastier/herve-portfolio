@@ -1,7 +1,7 @@
 <template>
   <div ref="project" class="project">
     <Marquee class="project-marquee" :dynamic="false" :text="project[1].title"></Marquee>
-    <div class="project-thumbnail">
+    <div ref="thumbnail" class="project-thumbnail">
       <img :src="project[1].thumbnail" />
     </div>
     <div class="container">
@@ -47,14 +47,23 @@ export default {
     mode: 'in-out',
     enter(el, done) {
       const test = el.querySelector('.m__row')
+      const thumbnail = el.querySelector('.project-thumbnail')
+      const tl = gsap.timeline({ delay: -0.5 })
 
-      gsap.from(test, {
+      tl.from(test, {
         x: '200%',
         y: '100vh',
-        z: 0,
-        duration: 2,
-        delay: -0.5
+        duration: 2.5
       })
+      tl.from(
+        thumbnail,
+        {
+          y: '100vh',
+          duration: 1,
+          ease: 'circ.out'
+        },
+        '-=1'
+      )
       done()
     },
 
