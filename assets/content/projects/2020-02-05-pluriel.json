@@ -1,6 +1,7 @@
 {
   "title": "Pluriel",
   "type": "XP",
+  "gradient": "linear-gradient(180deg, #1cf2f9 0%, #ff00c9 99%)",
   "thumbnail": "/img/photo-1579024567362-2ed01a33ad58.jpeg",
   "date": "2020-02-05T20:57:47.962Z",
   "pictures": [
