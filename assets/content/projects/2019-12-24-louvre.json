@@ -1,6 +1,7 @@
 {
   "title": "Louvre",
   "type": "Interactive",
+  "gradient": "linear-gradient(180deg, #FF6655 0%, #E6C138 99%)",
   "thumbnail": "/img/photo-1579024567362-2ed01a33ad58.jpeg",
   "date": "2019-12-24T00:35:52.688Z",
   "pictures": [
