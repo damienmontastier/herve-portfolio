@@ -1,5 +1,9 @@
 <template>
-  <div ref="cursor" class="cursor z-cursor">
+  <div
+    ref="cursor"
+    :style="{ background: projects[currentProject].gradient }"
+    class="cursor z-cursor"
+  >
     <svg
       ref="arrow"
       class="arrow"
@@ -26,61 +30,37 @@
 </template>
 
 <script>
-import gsap from 'gsap'
+// import gsap from 'gsap'
+import { mapState } from 'vuex'
+
 import Emitter from '@/assets/js/Events'
 
 export default {
   data() {
     return {
-      mousePosition: { x: 0, y: 0 },
-      cursorParams: {},
       cursorBlockRotation: false
     }
   },
   created() {},
   mounted() {
+    console.log(this.currentProject)
     this.handleEvents()
-    this.cursorParams = this.$refs.cursor.getBoundingClientRect()
   },
-  beforeDestroy() {
-    document.removeEventListener('mousemove', this.handleMouseMove)
+  computed: {
+    ...mapState({
+      projects: state => state.projects,
+      currentProject: state => state.currentProject,
+      nextProject: state => state.nextProject,
+      previousProject: state => state.previousProject
+    })
   },
-
   methods: {
     handleEvents() {
-      document.addEventListener('mousemove', this.handleMouseMove)
-
       Emitter.on('cursorHoverProject', this.cursorTransform)
 
       Emitter.on('blockCursor', bool => (this.cursorBlocked = bool))
     },
-    handleMouseMove(e) {
-      this.mousePosition.x = e.clientX
-      this.mousePosition.y = e.clientY
 
-      // if (!this.cursorBlockRotation && e.clientY < window.innerHeight / 2) {
-      //   gsap.to(this.$refs.cursor, {
-      //     duration: 0.8,
-      //     rotation: '-180deg',
-      //     ease: 'power2.out'
-      //   })
-      // } else {
-      //   gsap.to(this.$refs.cursor, {
-      //     duration: 0.8,
-      //     rotation: '0deg',
-      //     ease: 'power2.out'
-      //   })
-      // }
-
-      if (!this.cursorBlocked) {
-        gsap.to(this.$refs.cursor, {
-          duration: 0.5,
-          x: this.mousePosition.x - this.cursorParams.width / 2,
-          y: this.mousePosition.y - this.cursorParams.width / 2,
-          ease: 'power1.out'
-        })
-      }
-    },
     cursorTransform(bool) {
       if (bool) {
         this.cursorBlockRotation = true

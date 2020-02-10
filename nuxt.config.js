@@ -101,6 +101,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [],
+  // plugins: ['~/plugins/directives.js'],
   /*
    ** Nuxt.js dev-modules
    */

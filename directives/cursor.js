@@ -7,7 +7,7 @@ export const cursorHandler = {
   bind(el, { value: route }, vnode) {
     document.addEventListener('mousemove', handlerMouseMove.bind(this, el))
   },
-  update(el, binding) {
+  update(el, binding, vnode) {
     switch (binding.value) {
       case 'index':
         blockRotation = false
@@ -37,6 +37,15 @@ const handlerMouseMove = (el, e) => {
       ease: 'power2.out'
     })
   }
+
+  const { width } = el.getBoundingClientRect()
+
+  gsap.to(el, {
+    duration: 0.5,
+    x: e.clientX - width / 2,
+    y: e.clientY - width / 2,
+    ease: 'power1.out'
+  })
 }
 
 Vue.directive('cursorHandler', cursorHandler)
