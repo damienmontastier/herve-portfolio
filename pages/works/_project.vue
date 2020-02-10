@@ -1,6 +1,6 @@
 <template>
   <div ref="project" class="project">
-    <Marquee class="project-marquee" :dynamic="false" :text="project[1].title"></Marquee>
+    <Marquee ref="testtt" class="project-marquee" :dynamic="false" :text="project[1].title"></Marquee>
     <div ref="thumbnail" class="project-thumbnail">
       <img :src="project[1].thumbnail" />
     </div>
@@ -40,6 +40,7 @@
 import { mapState, mapMutations } from 'vuex'
 import gsap from 'gsap'
 import Marquee from '~/components/Marquee'
+import Emitter from '@/assets/js/Events'
 
 export default {
   transition: {
@@ -82,22 +83,44 @@ export default {
   components: {
     Marquee
   },
-
+  data() {
+    return {
+      delta: 0,
+      pos: 0
+    }
+  },
   created() {
     this.setCurrentProject(this.currentIndex)
-    console.log(this.current === this.projects.length - 1)
     if (!this.$store.state.nextProject && !this.$store.state.previousProject) {
       const next = this.currentIndex === this.projects.length - 1 ? 0 : (this.currentIndex += 1)
       this.setNextProject(next)
     }
   },
-  mounted() {},
+  mounted() {
+    Emitter.on('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    // Raf.remove('scroll', this.update.bind(this))
+    Emitter.off('scroll', this.handleScroll)
+  },
   methods: {
     ...mapMutations({
       setCurrentProject: 'setCurrentProject',
       setNextProject: 'setNextProject',
       setPreviousProject: 'setPreviousProject'
-    })
+    }),
+    handleScroll(e) {
+      this.delta = e.deltaY
+
+      this.pos += -this.delta + 10
+      this.pos = Math.max(0, Math.min(this.pos, document.body.scrollHeight - window.innerHeight))
+
+      gsap.to(this.$refs.project, {
+        y: -this.pos,
+        ease: 'power4.out',
+        duration: 2
+      })
+    }
   },
   computed: {
     ...mapState({

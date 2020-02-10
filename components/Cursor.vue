@@ -78,7 +78,8 @@ export default {
     currentProject(current) {
       gsap.to(this.$refs.cursor, {
         backgroundImage: this.projects[current].gradient,
-        ease: 'power3.out'
+        ease: 'power2.out',
+        duration: 1
       })
     }
   }

@@ -12,6 +12,7 @@ module.exports = {
   // add your custom rules here
 
   rules: {
+    curly: 0,
     'no-console': 'off',
     'space-before-function-paren': [
       'error',

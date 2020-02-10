@@ -1,13 +1,16 @@
 import Vue from 'vue'
-const VirtualScroll = process.client ? require('virtual-scroll') : null
+import Emitter from '@/assets/js/Events'
 
-console.log(VirtualScroll)
+const VirtualScroll = process.client ? require('virtual-scroll') : null
 
 const scroll = new Vue({
   created() {
-    console.log('test scroll plugin')
-  },
-  mounted() {}
+    if (!process.client) return
+    const vs = new VirtualScroll()
+    vs.on(e => {
+      Emitter.emit('scroll', e)
+    })
+  }
 })
 
 export default scroll

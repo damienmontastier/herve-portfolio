@@ -5,12 +5,7 @@
       <div class="container-row about">
         <span class="name-part">about</span>
         <div class="container-row--content">
-          <p>
-            His back film little was you the a frequency on frequency
-            behavioural frequencies eagerly however language needed my in
-            salesmen have the were century good, frequencies eagerly however
-            language needed
-          </p>
+          <p>His back film little was you the a frequency on frequency behavioural frequencies eagerly however language needed my in salesmen have the were century good, frequencies eagerly however language needed</p>
         </div>
       </div>
       <div class="container-row experiences">
@@ -54,13 +49,21 @@
 </template>
 
 <script>
+import gsap from 'gsap'
 import { mapState } from 'vuex'
+import Emitter from '@/assets/js/Events'
+// import Raf from '@/assets/js/Raf'
 
 export default {
   components: {
     Marquee: () => import('@/components/Marquee')
   },
-
+  data() {
+    return {
+      pos: 0,
+      delta: 0
+    }
+  },
   computed: {
     ...mapState({
       projects: state => state.projects,
@@ -69,6 +72,31 @@ export default {
       previousProject: state => state.previousProject,
       indexProject: state => state.indexProject
     })
+  },
+  mounted() {
+    // Raf.add('scroll', this.update.bind(this))
+    Emitter.on('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    // Raf.remove('scroll', this.update.bind(this))
+    Emitter.off('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll(e) {
+      this.delta = e.deltaY
+
+      this.pos += -this.delta + 10
+      this.pos = Math.max(0, Math.min(this.pos, document.body.scrollHeight - window.innerHeight))
+
+      gsap.to(this.$refs.about, {
+        y: -this.pos,
+        ease: 'power4.out',
+        duration: 2
+      })
+    },
+    update() {
+      // if (process.client) this.$refs.about.style.transform = `translate3d(0px, ${-this.pos}px, 0)`
+    }
   }
 }
 </script>
