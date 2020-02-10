@@ -2,32 +2,74 @@
   <div class="slider" ref="slider">
     <div class="slider__m">
       <transition-group :name="direction">
-        <div ref="rowTop" v-for="(project, index) in projects" v-show="currentProject === index" :key="index" class="slider__m--row slider__m--top m-title stroke left">
-          <div class="row--inner" v-for="i in 8" :key="'slider_bottom_inner' + i" v-html="project.title"></div>
+        <div
+          ref="rowTop"
+          v-for="(project, index) in projects"
+          v-show="currentProject === index"
+          :key="index"
+          class="slider__m--row slider__m--top m-title stroke left"
+        >
+          <div
+            class="row--inner"
+            v-for="i in 8"
+            :key="'slider_bottom_inner' + i"
+            v-html="project.title"
+          ></div>
         </div>
       </transition-group>
     </div>
 
     <div class="slider__m">
       <transition-group :name="direction">
-        <div v-for="(project, index) in projects" :key="index" v-show="currentProject === index" class="slider__m--row slider__m--center slider__m-middle m-title stroke">
-          <span v-for="i in 3" :key="'slider_center' + i" class="slider__m-middle-left" v-html="project.title"></span>
+        <div
+          v-for="(project, index) in projects"
+          :key="index"
+          v-show="currentProject === index"
+          class="slider__m--row slider__m--center slider__m-middle m-title stroke"
+        >
+          <span
+            v-for="i in 3"
+            :key="'slider_center' + i"
+            class="slider__m-middle-left"
+            v-html="project.title"
+          ></span>
           <div :data-type="project.type" class="slider__m-middle-center">
             <!-- <nuxt-link
               :key="project.title.toLowerCase()"
               :to="{ name: 'works-project', params: {project: project.title.toLowerCase() }}"
             >-->
-            <span ref="linkProject" :data-name="project.title" class="middle--center" v-html="project.title"></span>
+            <span
+              ref="linkProject"
+              :data-name="project.title"
+              class="middle--center"
+              v-html="project.title"
+            ></span>
             <!-- </nuxt-link> -->
           </div>
-          <span v-for="i in 3" :key="'slider_bottom' + i" class="slider__m-middle-right" v-html="project.title"></span>
+          <span
+            v-for="i in 3"
+            :key="'slider_bottom' + i"
+            class="slider__m-middle-right"
+            v-html="project.title"
+          ></span>
         </div>
       </transition-group>
     </div>
     <div class="slider__m">
       <transition-group :name="direction">
-        <div ref="rowBottom" v-for="(project, index) in projects" :key="index" v-show="currentProject === index" class="slider__m--row slider__m--bottom m-title stroke right">
-          <div class="row--inner" v-for="i in 8" :key="'slider_bottom_inner' + i" v-html="project.title"></div>
+        <div
+          ref="rowBottom"
+          v-for="(project, index) in projects"
+          :key="index"
+          v-show="currentProject === index"
+          class="slider__m--row slider__m--bottom m-title stroke right"
+        >
+          <div
+            class="row--inner"
+            v-for="i in 8"
+            :key="'slider_bottom_inner' + i"
+            v-html="project.title"
+          ></div>
         </div>
       </transition-group>
     </div>
@@ -37,6 +79,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import Emitter from '@/assets/js/Events'
 
 export default {
   components: {
@@ -45,7 +88,8 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      direction: null
+      direction: null,
+      enableScroll: true
     }
   },
   created() {},
@@ -54,6 +98,7 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleMouseClick)
+    Emitter.off('scroll', this.handleScroll)
 
     this.$refs.linkProject.forEach(link => {
       link.removeEventListener('click', this.goToProject)
@@ -62,10 +107,22 @@ export default {
   methods: {
     handleEvents() {
       document.addEventListener('click', this.handleMouseClick)
-
+      Emitter.on('scroll', this.handleScroll)
       this.$refs.linkProject.forEach(link => {
         link.addEventListener('click', this.goToProject)
       })
+    },
+
+    handleScroll(e) {
+      if (!this.enableScroll) return
+      this.enableScroll = false
+      const sign = Math.sign(e.deltaY)
+      if (sign > 0) this.previousSlide()
+      else this.nextSlide()
+
+      setTimeout(() => {
+        this.enableScroll = true
+      }, 1000)
     },
 
     handleMouseClick(e) {
