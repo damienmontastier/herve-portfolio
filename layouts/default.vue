@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { cursorHandler } from '@/directives/cursor.js'
+// import { cursorHandler } from '@/directives/cursor.js'
 
 export default {
   directives: {
-    cursorHandler
+    // cursorHandler
   },
   components: {
     Nav: () => import('@/components/Nav'),
@@ -90,7 +90,5 @@ export default {
       background: $black;
     }
   }
-}
-</style>>
-
-
+}</style
+>>

@@ -1,9 +1,9 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import gsap from 'gsap'
 
 let blockRotation = false
 
-export const cursorHandler = {
+export default {
   bind(el, { value: route }, vnode) {
     document.addEventListener('mousemove', handlerMouseMove.bind(this, el))
   },
@@ -48,4 +48,4 @@ const handlerMouseMove = (el, e) => {
   })
 }
 
-Vue.directive('cursorHandler', cursorHandler)
+// Vue.directive('cursorHandler', cursorHandler)
