@@ -34,17 +34,12 @@
             v-html="project.title"
           ></span>
           <div :data-type="project.type" class="slider__m-middle-center">
-            <!-- <nuxt-link
-              :key="project.title.toLowerCase()"
-              :to="{ name: 'works-project', params: {project: project.title.toLowerCase() }}"
-            >-->
             <span
               ref="linkProject"
               :data-name="project.title"
               class="middle--center"
               v-html="project.title"
             ></span>
-            <!-- </nuxt-link> -->
           </div>
           <span
             v-for="i in 3"
