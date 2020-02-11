@@ -2,12 +2,7 @@
   <div ref="gallery" class="gallery">
     <div ref="galleryMask" class="gallery-mask">
       <div ref="galleryImage" class="gallery-holder">
-        <picture
-          ref="galleryPictures"
-          v-for="(project, index) in projects"
-          :key="index"
-          class="pictures"
-        >
+        <picture ref="galleryPictures" v-for="(project, index) in projects" :key="index" class="pictures">
           <source :srcset="project.thumbnail" media="(min-width: 600px)" />
           <img :src="project.thumbnail" :alt="`${project.title}-img`" />
         </picture>
@@ -26,6 +21,8 @@ export default {
     return {}
   },
   mounted() {
+    this.boundingRect = this.$refs.gallery.getBoundingClientRect()
+
     this.handleEvents()
   },
   destroyed() {
@@ -56,17 +53,16 @@ export default {
       Emitter.emit('cursorHoverProject', false)
     },
     handleMoveGallery(event) {
-      const { width, height } = this.$refs.gallery.getBoundingClientRect()
       gsap.to(this.$refs.gallery, {
-        x: event.clientX - width / 2,
-        y: event.clientY - height / 2,
+        x: event.clientX - this.boundingRect.width / 2,
+        y: event.clientY - this.boundingRect.height / 2,
         duration: 0.5,
         ease: 'power1.out'
       })
 
       gsap.to(this.$refs.galleryImage, {
-        x: (event.offsetX - width / 2) * 0.7,
-        y: (event.offsetY - height / 2) * 0.7,
+        x: (event.offsetX - this.boundingRect.width / 2) * 0.7,
+        y: (event.offsetY - this.boundingRect.height / 2) * 0.7,
         duration: 0.5,
         ease: 'power1.out'
       })

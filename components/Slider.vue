@@ -2,69 +2,27 @@
   <div class="slider" ref="slider">
     <div class="slider__m">
       <transition-group :name="direction">
-        <div
-          ref="rowTop"
-          v-for="(project, index) in projects"
-          v-show="currentProject === index"
-          :key="index"
-          class="slider__m--row slider__m--top m-title stroke left"
-        >
-          <div
-            class="row--inner"
-            v-for="i in 8"
-            :key="'slider_bottom_inner' + i"
-            v-html="project.title"
-          ></div>
+        <div ref="rowTop" v-for="(project, index) in projects" v-show="currentProject === index" :key="index" class="slider__m--row slider__m--top m-title stroke left">
+          <div class="row--inner" v-for="i in 8" :key="'slider_bottom_inner' + i" v-html="project.title"></div>
         </div>
       </transition-group>
     </div>
 
     <div class="slider__m">
       <transition-group :name="direction">
-        <div
-          v-for="(project, index) in projects"
-          :key="index"
-          v-show="currentProject === index"
-          class="slider__m--row slider__m--center slider__m-middle m-title stroke"
-        >
-          <span
-            v-for="i in 3"
-            :key="'slider_center' + i"
-            class="slider__m-middle-left"
-            v-html="project.title"
-          ></span>
+        <div v-for="(project, index) in projects" :key="index" v-show="currentProject === index" class="slider__m--row slider__m--center slider__m-middle m-title stroke">
+          <span v-for="i in 3" :key="'slider_center' + i" class="slider__m-middle-left" v-html="project.title"></span>
           <div :data-type="project.type" class="slider__m-middle-center">
-            <span
-              ref="linkProject"
-              :data-name="project.title"
-              class="middle--center"
-              v-html="project.title"
-            ></span>
+            <span ref="linkProject" :data-name="project.title" class="middle--center" v-html="project.title"></span>
           </div>
-          <span
-            v-for="i in 3"
-            :key="'slider_bottom' + i"
-            class="slider__m-middle-right"
-            v-html="project.title"
-          ></span>
+          <span v-for="i in 3" :key="'slider_bottom' + i" class="slider__m-middle-right" v-html="project.title"></span>
         </div>
       </transition-group>
     </div>
     <div class="slider__m">
       <transition-group :name="direction">
-        <div
-          ref="rowBottom"
-          v-for="(project, index) in projects"
-          :key="index"
-          v-show="currentProject === index"
-          class="slider__m--row slider__m--bottom m-title stroke right"
-        >
-          <div
-            class="row--inner"
-            v-for="i in 8"
-            :key="'slider_bottom_inner' + i"
-            v-html="project.title"
-          ></div>
+        <div ref="rowBottom" v-for="(project, index) in projects" :key="index" v-show="currentProject === index" class="slider__m--row slider__m--bottom m-title stroke right">
+          <div class="row--inner" v-for="i in 8" :key="'slider_bottom_inner' + i" v-html="project.title"></div>
         </div>
       </transition-group>
     </div>
@@ -122,7 +80,7 @@ export default {
 
     handleMouseClick(e) {
       if (!e.target.classList.contains('middle--center') && e.target.localName !== 'a') {
-        if (e.clientY < window.innerHeight / 2) {
+        if (e.clientY < this.$viewport.height / 2) {
           this.previousSlide()
         } else {
           this.nextSlide()

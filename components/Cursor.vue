@@ -1,25 +1,9 @@
 <template>
   <div ref="cursor" class="cursor z-cursor">
-    <svg
-      ref="arrow"
-      class="arrow"
-      width="20"
-      height="31"
-      viewBox="0 0 20 31"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg ref="arrow" class="arrow" width="20" height="31" viewBox="0 0 20 31" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g ref="arrowG" fill="#FFF" fill-rule="evenodd">
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M8.54807 28.8591L8.99604 0.791321L11.9957 0.839196L11.5477 28.907L8.54807 28.8591Z"
-        />
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M19.8379 21.6992L10.1174 30.9838L0.684998 21.6311L2.7973 19.5008L10.1565 26.7978L17.7658 19.5298L19.8379 21.6992Z"
-        />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.54807 28.8591L8.99604 0.791321L11.9957 0.839196L11.5477 28.907L8.54807 28.8591Z" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8379 21.6992L10.1174 30.9838L0.684998 21.6311L2.7973 19.5008L10.1565 26.7978L17.7658 19.5298L19.8379 21.6992Z" />
       </g>
     </svg>
   </div>
@@ -78,7 +62,7 @@ export default {
   transition: border 0.5s ease-in-out;
 
   &--work-about {
-    background: none;
+    background: none !important;
     border: 1px solid white;
     mix-blend-mode: difference;
   }

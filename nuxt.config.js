@@ -101,7 +101,14 @@ export default {
    ** Plugins to load before mounting the App
    */
   // plugins: [],
-  plugins: ['~/plugins/directives.js', '~/plugins/scroll.js'],
+  plugins: [
+    '~/plugins/directives.js',
+    '~/plugins/scroll.js',
+    {
+      src: '~/plugins/viewport.js',
+      mode: 'client'
+    }
+  ],
   /*
    ** Nuxt.js dev-modules
    */

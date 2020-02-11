@@ -1,7 +1,7 @@
 // import Vue from 'vue'
 import gsap from 'gsap'
 import Emitter from '@/assets/js/Events'
-
+import Viewport from '~/plugins/viewport'
 let blockRotation = false
 let cursorHoverActive = false
 
@@ -39,7 +39,7 @@ const handlerHoverProject = (vnode, bool) => {
   }
 }
 const handlerMouseMove = (el, e) => {
-  if (!cursorHoverActive && !blockRotation && e.clientY < window.innerHeight / 2) {
+  if (!cursorHoverActive && !blockRotation && e.clientY < Viewport.height / 2) {
     gsap.to(el, {
       duration: 0.8,
       rotation: '-180deg',

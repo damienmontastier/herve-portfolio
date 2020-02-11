@@ -86,7 +86,7 @@ export default {
       this.delta = e.deltaY
 
       this.pos += -this.delta + 10
-      this.pos = Math.max(0, Math.min(this.pos, document.body.scrollHeight - window.innerHeight))
+      this.pos = Math.max(0, Math.min(this.pos, document.body.scrollHeight - this.$viewport.height))
 
       gsap.to(this.$refs.about, {
         y: -this.pos,
