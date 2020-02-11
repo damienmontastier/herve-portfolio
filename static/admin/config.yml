@@ -20,6 +20,8 @@ collections:
       - { label: 'Gradient', name: 'gradient', widget: 'string' }
       - { label: 'Thumbnail', name: 'thumbnail', widget: 'image' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: 'Description', name: 'description', widget: 'text' }
+      - { label: 'Project rôles', name: 'roles', widget: 'list', field: { label: Rôle, name: role, widget: string } }
       - { label: 'Project pictures', name: 'pictures', widget: 'list', field: { label: Image, name: image, widget: image } }
   - name: 'about'
     label: 'A propos'
@@ -31,3 +33,5 @@ collections:
       preview: false
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'text' }
+      - { label: 'Réseaux sociaux', name: 'socials-network', widget: 'list', field: { label: social, name: social, widget: string } }
